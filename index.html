@@ -4,11 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>داشبرد عملکرد توسعه - تیر</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/vazirmatn@5.3.0/index.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f1117;color:#e0e0e0;min-height:100vh;}
+:root{
+  --dashboard-font:'Vazirmatn Variable','Vazirmatn','Vazir',Tahoma,Arial,sans-serif;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:var(--dashboard-font) !important;
+}
+
+html,body,button,input,select,textarea,option,table,canvas{
+  font-family:var(--dashboard-font) !important;
+}
+
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+body{
+  background:#0f1117;
+  color:#e0e0e0;
+  min-height:100vh;
+  font-family:var(--dashboard-font) !important;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  font-synthesis:none;
+}
+
+button,input,select,textarea{
+  -webkit-appearance:none;
+  appearance:none;
+  font:inherit;
+}
+
+select{
+  -webkit-appearance:auto;
+  appearance:auto;
+}
 
 .header{
   background:linear-gradient(135deg,#1a1f35,#0d1b2a);
@@ -508,6 +548,11 @@ tbody tr:hover{background:#1a2030;}
 </div>
 
 <script>
+// اجبار فونت وزیرمتن برای تمام نوشته‌های داخل نمودارهای Chart.js
+Chart.defaults.font.family = "Vazirmatn Variable, Vazirmatn, Vazir, Tahoma, Arial, sans-serif";
+Chart.defaults.font.weight = '500';
+Chart.defaults.color = '#8892a4';
+
 // ============ DATA SOURCE: GOOGLE SHEET (زنده) ============
 // این آدرس همون لینک "Publish to web" شماست که به فرمت CSV تبدیل شده.
 // هر وقت خود گوگل شیت رو آپدیت کنید، این لینک هم به‌روز می‌شه (معمولاً با کمی تاخیر، چند دقیقه).
