@@ -275,7 +275,7 @@ tbody tr:hover{background:#1a2030;}
   <div class="hLeft">
     <div class="hIcon">📊</div>
     <div>
-      <div class="hTitle">داشبرد عملکرد توسعه - تیر ماه</div>
+      <div class="hTitle">داشبرد عملکرد توسعه - مرداد ماه</div>
       <div class="hSub">اولویت ۱: تحقق هدف افتتاح &nbsp;|&nbsp; اولویت ۲: تحقق هدف قراردادی</div>
     </div>
   </div>
@@ -293,7 +293,7 @@ tbody tr:hover{background:#1a2030;}
   <div class="prItem">
     <div class="prNum pr1">۱</div>
     <div>
-      <div class="prText">تحقق هدف افتتاح تا تیر</div>
+      <div class="prText">تحقق هدف افتتاح تا مرداد</div>
       <div class="prLabel">مهم‌ترین شاخص عملکردی</div>
     </div>
   </div>
@@ -301,7 +301,7 @@ tbody tr:hover{background:#1a2030;}
   <div class="prItem">
     <div class="prNum pr2">۲</div>
     <div>
-      <div class="prText">تحقق هدف قراردادی تا تیر</div>
+      <div class="prText">تحقق هدف قراردادی تا مرداد</div>
       <div class="prLabel">شاخص دوم عملکردی</div>
     </div>
   </div>
@@ -587,7 +587,7 @@ const FALLBACK_DATA = [
 ];
 
 // نگاشت دقیق بر اساس ترتیب ستون‌های شیت شما (تایید شده):
-// A: مدیر منطقه | B: هدف تا تیر | C: قرارداد ستادی | D: ترهین فرانچایز
+// A: مدیر منطقه | B: هدف تا مرداد | C: قرارداد ستادی | D: ترهین فرانچایز
 // E: مجموع افتتاح | F: مجموع قرارداد | G: تحقق هدف قراردادی | H: تحقق هدف افتتاحیه
 const COL = { name:0, target:1, standard:2, franchise:3, open_abs:4, total:5, cont_pct:6, open_pct:7 };
 
@@ -752,7 +752,7 @@ function renderKPI(){
      badge:exO>0?`${exO} نفر`:'',bCls:'bg',cls:'k5',pr:'priority1',prTag:'kPr1Tag',prL:'اولویت ۱'},
     {ico:'📝',label:'مدیران عالی قراردادی',val:exC,sub:`${n?Math.round(exC/n*100):0}% ≥100%`,
      badge:exC>0?`${exC} نفر`:'',bCls:'bb',cls:'k6',pr:'priority2',prTag:'kPr2Tag',prL:'اولویت ۲'},
-    {ico:'🎯',label:'هدف کل تیر',val:sumT,sub:'مجموع هدف افتتاح',badge:'',cls:'k7',pr:'',prTag:'',prL:''},
+    {ico:'🎯',label:'هدف کل مرداد',val:sumT,sub:'مجموع هدف افتتاح',badge:'',cls:'k7',pr:'',prTag:'',prL:''},
     {ico:'🏢',label:'مجموع ستادی + فرانچایز',val:sumS+sumF,sub:`ستادی: ${sumS} | فرانچایز: ${sumF}`,badge:'',cls:'k8',pr:'',prTag:'',prL:''},
   ];
 
