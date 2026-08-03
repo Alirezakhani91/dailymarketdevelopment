@@ -294,7 +294,7 @@ tbody tr:hover{background:#1a2030;}
 .execRule span{font-size:9px;font-weight:700;padding:5px 8px;border-radius:20px;white-space:nowrap;}
 .execRule .p1{color:#10b981;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.24);}
 .execRule .p2{color:#4f8ef7;background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.24);}
-.execSummary{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:14px;}
+.execSummary{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:14px;}
 .execSummaryItem{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.085);border-radius:12px;padding:11px 12px;min-width:0;}
 .execSummaryLabel{font-size:9px;color:#8b9bb3;line-height:1.5;}
 .execSummaryValue{font-size:16px;font-weight:900;color:#fff;margin-top:3px;line-height:1.35;overflow-wrap:anywhere;}
@@ -528,6 +528,7 @@ tbody tr:hover{background:#1a2030;}
   .execRule{justify-content:flex-start;}
   .execRule span{font-size:8px;padding:4px 7px;}
   .execSummary{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:10px;}
+  .execSummaryItem:last-child:nth-child(odd){grid-column:1/-1;}
   .execSummaryItem{padding:9px;border-radius:10px;}
   .execSummaryLabel{font-size:8px;}
   .execSummaryValue{font-size:14px;}
@@ -1228,13 +1229,10 @@ function renderExecutiveManagers(){
   const totalContract=executives.reduce((s,e)=>s+e.contracts,0);
   const overallOpen=totalTarget?Math.round(totalOpen/totalTarget*100):0;
   const overallCont=totalTarget?Math.round(totalContract/totalTarget*100):0;
-  const widest=[...executives].sort((a,b)=>b.items.length-a.items.length)[0];
-
   summaryEl.innerHTML=[
     {label:'تعداد مدیران اجرایی',value:executives.length+' نفر',hint:valid.length+' مدیر منطقه تحت پوشش'},
     {label:'تحقق افتتاح تجمیعی',value:overallOpen+'%',hint:totalOpen+' افتتاح از هدف '+totalTarget},
-    {label:'تحقق قراردادی تجمیعی',value:overallCont+'%',hint:totalContract+' قرارداد ثبت‌شده'},
-    {label:'بیشترین دامنه مدیریت',value:escHtml((widest&&widest.name)||'—'),hint:((widest&&widest.items.length)||0)+' مدیر منطقه'}
+    {label:'تحقق قراردادی تجمیعی',value:overallCont+'%',hint:totalContract+' قرارداد ثبت‌شده'}
   ].map(x=>`<div class="execSummaryItem"><div class="execSummaryLabel">${x.label}</div><div class="execSummaryValue">${x.value}</div><div class="execSummaryHint">${x.hint}</div></div>`).join('');
 
   gridEl.innerHTML=executives.map((e,i)=>{
