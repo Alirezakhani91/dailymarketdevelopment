@@ -264,6 +264,82 @@ tbody tr:hover{background:#1a2030;}
 ::-webkit-scrollbar-thumb{background:#2a3550;border-radius:3px;}
 ::-webkit-scrollbar-thumb:hover{background:#10b981;}
 
+
+
+/* ===== EXECUTIVE MANAGERS — لایه مدیریتی تجمیعی ===== */
+.execSection{padding:20px 28px 0;}
+.execPanel{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(900px 360px at 92% -15%,rgba(245,158,11,.18),transparent 58%),
+    radial-gradient(640px 300px at -8% 115%,rgba(79,142,247,.13),transparent 62%),
+    linear-gradient(145deg,#111827 0%,#111b2d 48%,#0b1322 100%);
+  border:1px solid rgba(245,158,11,.28);border-radius:20px;
+  padding:22px;box-shadow:0 20px 55px rgba(0,0,0,.34);
+}
+.execPanel::before{
+  content:'';position:absolute;inset:0 0 auto;height:3px;
+  background:linear-gradient(90deg,#f59e0b,#10b981,#4f8ef7,#f59e0b);
+}
+.execPanel::after{
+  content:'';position:absolute;width:220px;height:220px;border-radius:50%;
+  left:-110px;top:-110px;border:32px solid rgba(255,255,255,.025);pointer-events:none;
+}
+.execHead{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:16px;}
+.execHeadMain{min-width:0;}
+.execEyebrow{display:inline-flex;align-items:center;gap:7px;color:#f59e0b;font-size:10px;font-weight:800;letter-spacing:.03em;background:rgba(245,158,11,.11);border:1px solid rgba(245,158,11,.24);padding:4px 9px;border-radius:20px;margin-bottom:7px;}
+.execTitle{font-size:18px;font-weight:900;color:#fff;line-height:1.55;}
+.execSub{font-size:11px;color:#94a3b8;line-height:1.8;margin-top:3px;max-width:720px;}
+.execRule{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.execRule span{font-size:9px;font-weight:700;padding:5px 8px;border-radius:20px;white-space:nowrap;}
+.execRule .p1{color:#10b981;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.24);}
+.execRule .p2{color:#4f8ef7;background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.24);}
+.execSummary{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:14px;}
+.execSummaryItem{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.085);border-radius:12px;padding:11px 12px;min-width:0;}
+.execSummaryLabel{font-size:9px;color:#8b9bb3;line-height:1.5;}
+.execSummaryValue{font-size:16px;font-weight:900;color:#fff;margin-top:3px;line-height:1.35;overflow-wrap:anywhere;}
+.execSummaryHint{font-size:9px;color:#64748b;margin-top:2px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.execGrid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:11px;}
+.execCard{background:linear-gradient(155deg,rgba(255,255,255,.072),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.11);border-radius:15px;padding:14px;min-width:0;transition:transform .2s,border-color .2s,background .2s;}
+.execCard:hover{transform:translateY(-3px);border-color:rgba(79,142,247,.42);background:linear-gradient(155deg,rgba(255,255,255,.095),rgba(255,255,255,.045));}
+.execCard.isLeader{border-color:rgba(245,158,11,.48);background:linear-gradient(155deg,rgba(245,158,11,.13),rgba(255,255,255,.04));box-shadow:inset 0 0 0 1px rgba(245,158,11,.05);}
+.execCardTop{display:flex;align-items:center;gap:10px;margin-bottom:11px;}
+.execRank{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:0 0 34px;background:#1e293b;border:1px solid rgba(255,255,255,.1);font-size:12px;font-weight:900;color:#cbd5e1;}
+.execCard.isLeader .execRank{background:linear-gradient(135deg,#fbbf24,#d97706);color:#111827;border-color:transparent;}
+.execNameWrap{min-width:0;flex:1;}
+.execName{font-size:13px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.execCoverage{font-size:9px;color:#8ea0b8;margin-top:2px;}
+.execStatus{font-size:9px;font-weight:800;padding:4px 7px;border-radius:20px;white-space:nowrap;}
+.execStatus.ex{color:#10b981;background:rgba(16,185,129,.12);}
+.execStatus.gd{color:#4f8ef7;background:rgba(79,142,247,.12);}
+.execStatus.av{color:#f59e0b;background:rgba(245,158,11,.12);}
+.execStatus.lw{color:#ef4444;background:rgba(239,68,68,.12);}
+.execMetrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:11px;}
+.execMetric{background:rgba(4,10,20,.30);border:1px solid rgba(255,255,255,.065);border-radius:10px;padding:8px 6px;text-align:center;min-width:0;}
+.execMetricVal{font-size:15px;font-weight:900;color:#fff;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.execMetricVal.green{color:#10b981;}.execMetricVal.blue{color:#60a5fa;}.execMetricVal.gold{color:#fbbf24;}
+.execMetricLabel{font-size:8px;color:#718096;margin-top:3px;line-height:1.4;}
+.execProgress{margin-top:8px;}
+.execProgressTop{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px;font-size:9px;}
+.execProgressLabel{color:#9aa8bd;}
+.execProgressValue{font-size:11px;font-weight:900;}
+.execTrack{height:7px;background:rgba(255,255,255,.075);border-radius:20px;overflow:hidden;}
+.execFill{height:100%;border-radius:20px;min-width:2px;}
+.execFill.open{background:linear-gradient(90deg,#059669,#34d399);}
+.execFill.cont{background:linear-gradient(90deg,#2563eb,#60a5fa);}
+.execInsights{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:11px;}
+.execInsight{border-top:1px solid rgba(255,255,255,.08);padding-top:8px;min-width:0;}
+.execInsightLabel{font-size:8px;color:#64748b;margin-bottom:3px;}
+.execInsightValue{font-size:9px;color:#cbd5e1;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.execInsightValue.attention{color:#fca5a5;}
+.execMembers{margin-top:9px;border-top:1px dashed rgba(255,255,255,.09);padding-top:7px;}
+.execMembers summary{font-size:9px;color:#94a3b8;cursor:pointer;list-style:none;user-select:none;}
+.execMembers summary::-webkit-details-marker{display:none;}
+.execMembers summary::before{content:'＋';display:inline-block;margin-left:5px;color:#60a5fa;font-weight:900;}
+.execMembers[open] summary::before{content:'−';}
+.execMembersList{font-size:9px;color:#73839a;line-height:1.9;padding-top:5px;}
+.execEmpty{position:relative;z-index:1;text-align:center;padding:24px 12px;color:#94a3b8;font-size:11px;border:1px dashed rgba(255,255,255,.14);border-radius:12px;}
+
 @media(max-width:1000px){.g2,.g3{grid-template-columns:1fr;}.dualLb{grid-template-columns:1fr;}.dualSide:first-child{border-left:none;border-bottom:1px solid #1e2a3a;}}
 
 /* MOBILE LAYOUT — تمام تغییرات این بخش فقط در موبایل اعمال می‌شود */
@@ -441,6 +517,37 @@ tbody tr:hover{background:#1a2030;}
   .totalRow td:first-child{min-width:193px;max-width:none;right:0;z-index:4;background:#0d1117;}
   .barVal{font-size:10px;}
   .tag{font-size:9px;padding:3px 7px;}
+
+  /* پنل مدیران اجرایی در موبایل */
+  .execSection{padding:14px 12px 0;}
+  .execPanel{padding:15px 12px 13px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.28);}
+  .execHead{flex-direction:column;gap:9px;margin-bottom:12px;}
+  .execEyebrow{font-size:9px;margin-bottom:5px;}
+  .execTitle{font-size:15px;line-height:1.6;}
+  .execSub{font-size:9px;line-height:1.75;}
+  .execRule{justify-content:flex-start;}
+  .execRule span{font-size:8px;padding:4px 7px;}
+  .execSummary{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:10px;}
+  .execSummaryItem{padding:9px;border-radius:10px;}
+  .execSummaryLabel{font-size:8px;}
+  .execSummaryValue{font-size:14px;}
+  .execSummaryHint{font-size:8px;}
+  .execGrid{grid-template-columns:1fr;gap:8px;}
+  .execCard{padding:12px;border-radius:12px;}
+  .execCard:hover{transform:none;}
+  .execRank{width:32px;height:32px;flex-basis:32px;border-radius:10px;}
+  .execName{font-size:12px;}
+  .execCoverage{font-size:8px;}
+  .execStatus{font-size:8px;}
+  .execMetrics{gap:5px;}
+  .execMetric{padding:8px 4px;}
+  .execMetricVal{font-size:14px;}
+  .execMetricLabel{font-size:7px;}
+  .execProgressTop{font-size:8px;}
+  .execProgressValue{font-size:10px;}
+  .execInsightLabel{font-size:7px;}
+  .execInsightValue,.execMembers summary,.execMembersList{font-size:8px;}
+
 }
 
 @media(max-width:370px){
@@ -563,6 +670,26 @@ tbody tr:hover{background:#1a2030;}
     </div>
     <div class="gaugeRow" id="gaugeRow"></div>
   </div>
+</div>
+
+
+<!-- EXECUTIVE MANAGERS -->
+<div class="execSection">
+  <section class="execPanel" aria-labelledby="execManagersTitle">
+    <div class="execHead">
+      <div class="execHeadMain">
+        <div class="execEyebrow">👑 نمای ویژه مدیریت اجرایی</div>
+        <div class="execTitle" id="execManagersTitle">عملکرد تجمیعی مدیران اجرایی</div>
+        <div class="execSub">نمای مدیریتی مناطق تحت پوشش هر مدیر اجرایی؛ رتبه‌بندی ابتدا بر اساس تحقق افتتاح و سپس تحقق قراردادی انجام می‌شود.</div>
+      </div>
+      <div class="execRule">
+        <span class="p1">اولویت ۱: افتتاح</span>
+        <span class="p2">اولویت ۲: قرارداد</span>
+      </div>
+    </div>
+    <div class="execSummary" id="execSummary"></div>
+    <div class="execGrid" id="execGrid"></div>
+  </section>
 </div>
 
 <!-- TOP 3 افتتاح + TOP 3 قراردادی -->
@@ -777,30 +904,89 @@ const FALLBACK_DATA = [
   {name:"پاشایی بهنام",        target:7,  standard:2,  franchise:1, open_abs:1,  total:3,  cont_pct:43,  open_pct:14},
 ];
 
-// نگاشت دقیق بر اساس ترتیب ستون‌های شیت شما (تایید شده):
-// A: مدیر منطقه | B: هدف تا مرداد | C: قرارداد ستادی | D: ترهین فرانچایز
-// E: مجموع افتتاح | F: مجموع قرارداد | G: تحقق هدف قراردادی | H: تحقق هدف افتتاحیه
-const COL = { name:0, target:1, standard:2, franchise:3, open_abs:4, total:5, cont_pct:6, open_pct:7 };
+// نگاشت هوشمند ستون‌ها؛ محل ستون «مدیر اجرایی» می‌تواند در شیت تغییر کند.
+// در صورت نبود هدر استاندارد، ترتیب قبلی ستون‌ها به‌عنوان پشتیبان استفاده می‌شود.
+const COL = { name:0, target:1, standard:2, franchise:3, open_abs:4, total:5, cont_pct:6, open_pct:7, exec:-1 };
+
+const EXEC_FALLBACK_MAP = {
+  "اتحاد مصطفی":"حسینی نسب عماد",
+  "بهنان مسعود":"محالی میثم",
+  "بهادری مرتضی":"حسینی نسب عماد",
+  "مرزبان یزدان":"محسنی مجید",
+  "اثنی عشری حسین":"حسینی نسب عماد",
+  "بختیاریان رضا":"محسنی مجید",
+  "حسن زاده سید امین":"حسینی نسب عماد",
+  "وجدان رضا":"هم مسلک بهمن",
+  "منجزی وند رضا":"محالی میثم",
+  "کلالی مهیار":"محالی میثم",
+  "جعفری رضا":"نوری فرید",
+  "غرب گیلان":"هم مسلک بهمن",
+  "دشت افکن مهدی":"هم مسلک بهمن",
+  "عابد مجتبی":"حسینی نسب عماد",
+  "جمشیدی محمد":"نوری فرید",
+  "اسگندری حجت":"محالی میثم",
+  "عزت شعار علی":"هم مسلک بهمن",
+  "سلمان زاده کیوان":"نوری فرید",
+  "علی محمدی ساسان":"محسنی مجید",
+  "قدرتی میلاد":"محسنی مجید",
+  "فارسی علی":"محسنی مجید",
+  "صادق سعید":"هم مسلک بهمن",
+  "پوررجی امید":"نوری فرید",
+  "پاشایی بهنام":"هم مسلک بهمن"
+};
+FALLBACK_DATA.forEach(d=>{ d.exec=EXEC_FALLBACK_MAP[d.name] || d.exec || 'تعیین نشده'; });
+
+function normalizeHeader(v){
+  return String(v??'')
+    .replace(/ي/g,'ی').replace(/ك/g,'ک')
+    .replace(/[\u200c\u200f\u202a-\u202e]/g,' ')
+    .replace(/[٪%:()\-_/\\]/g,' ')
+    .replace(/\s+/g,' ').trim().toLowerCase();
+}
+
+function findHeaderIndex(headers, aliases, fallback){
+  const normalizedAliases=aliases.map(normalizeHeader);
+  for(let i=0;i<headers.length;i++){
+    if(normalizedAliases.includes(headers[i])) return i;
+  }
+  for(let i=0;i<headers.length;i++){
+    if(normalizedAliases.some(a=>a && (headers[i].includes(a)||a.includes(headers[i])))) return i;
+  }
+  return fallback;
+}
 
 function mapRowsToData(rows){
   if(!rows || !rows.length) throw new Error('empty');
   const num = v => { const n=parseFloat(String(v??'').replace(/[,٪%]/g,'')); return isNaN(n)?0:n; };
+  const headers=(rows[0]||[]).map(normalizeHeader);
+  const idx={
+    name:findHeaderIndex(headers,['مدیر منطقه','نام مدیر منطقه'],COL.name),
+    exec:findHeaderIndex(headers,['مدیر اجرایی','نام مدیر اجرایی'],COL.exec),
+    target:findHeaderIndex(headers,['هدف تا مرداد','هدف مرداد','هدف'],COL.target),
+    standard:findHeaderIndex(headers,['قرارداد ستادی','ستادی'],COL.standard),
+    franchise:findHeaderIndex(headers,['ترهین فرانچایز','قرارداد فرانچایز','فرانچایز'],COL.franchise),
+    open_abs:findHeaderIndex(headers,['مجموع افتتاح','تعداد افتتاح','افتتاح'],COL.open_abs),
+    total:findHeaderIndex(headers,['مجموع قرارداد','کل قرارداد'],COL.total),
+    cont_pct:findHeaderIndex(headers,['تحقق هدف قراردادی','درصد تحقق قرارداد','تحقق قرارداد'],COL.cont_pct),
+    open_pct:findHeaderIndex(headers,['تحقق هدف افتتاحیه','تحقق هدف افتتاح','درصد تحقق افتتاح'],COL.open_pct)
+  };
   const out=[];
-  // ردیف اول رو رد می‌کنیم چون هدره؛ اگه ردیف اول اسم داشت ولی داده‌ی عددی نداشت هم رد می‌شه
   for(let i=1;i<rows.length;i++){
     const r=rows[i];
-    if(!r || !r[COL.name] || !String(r[COL.name]).trim()) continue;
-    const rec = {
-      name:      String(r[COL.name]).trim(),
-      target:    num(r[COL.target]),
-      standard:  num(r[COL.standard]),
-      franchise: num(r[COL.franchise]),
-      open_abs:  num(r[COL.open_abs]),
-      total:     num(r[COL.total]),
-      cont_pct:  num(r[COL.cont_pct]),
-      open_pct:  num(r[COL.open_pct]),
-    };
-    out.push(rec);
+    if(!r || idx.name<0 || !r[idx.name] || !String(r[idx.name]).trim()) continue;
+    const name=String(r[idx.name]).trim();
+    const execFromSheet=idx.exec>=0 ? String(r[idx.exec]??'').trim() : '';
+    out.push({
+      name,
+      exec:execFromSheet || EXEC_FALLBACK_MAP[name] || 'تعیین نشده',
+      target:num(r[idx.target]),
+      standard:num(r[idx.standard]),
+      franchise:num(r[idx.franchise]),
+      open_abs:num(r[idx.open_abs]),
+      total:num(r[idx.total]),
+      cont_pct:num(r[idx.cont_pct]),
+      open_pct:num(r[idx.open_pct])
+    });
   }
   if(!out.length) throw new Error('هیچ ردیفی پیدا نشد');
   return out;
@@ -904,6 +1090,7 @@ function resetAll(){
 function renderAll(){
   renderKPI();
   renderGauge();
+  renderExecutiveManagers();
   renderTop3();
   renderDualLB();
   renderComparison();
@@ -990,6 +1177,110 @@ function renderGauge(){
       <div class="gaugeLabel">${it.label}</div>
       <div class="gaugeSub" style="color:${it.color};">${it.sub}</div>
     </div>`).join('');
+}
+
+
+// ============ EXECUTIVE MANAGERS ============
+function escHtml(v){
+  return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+}
+
+function execStatus(p){
+  return p>=100?['تحقق کامل','ex']:p>=70?['در مسیر مناسب','gd']:p>=40?['نیازمند پیگیری','av']:['وضعیت بحرانی','lw'];
+}
+
+function renderExecutiveManagers(){
+  const summaryEl=document.getElementById('execSummary');
+  const gridEl=document.getElementById('execGrid');
+  if(!summaryEl||!gridEl) return;
+
+  const valid=DATA.filter(d=>d.exec && d.exec!=='تعیین نشده');
+  if(!valid.length){
+    summaryEl.innerHTML='';
+    gridEl.innerHTML='<div class="execEmpty">ستون «مدیر اجرایی» در داده‌های گوگل‌شیت شناسایی نشد. عنوان ستون را دقیقاً «مدیر اجرایی» قرار دهید.</div>';
+    return;
+  }
+
+  const grouped=new Map();
+  valid.forEach(d=>{
+    if(!grouped.has(d.exec)) grouped.set(d.exec,[]);
+    grouped.get(d.exec).push(d);
+  });
+
+  const executives=[...grouped.entries()].map(([name,items])=>{
+    const target=items.reduce((s,d)=>s+d.target,0);
+    const opened=items.reduce((s,d)=>s+d.open_abs,0);
+    const contracts=items.reduce((s,d)=>s+d.total,0);
+    const standard=items.reduce((s,d)=>s+d.standard,0);
+    const franchise=items.reduce((s,d)=>s+d.franchise,0);
+    const openPct=target?Math.round(opened/target*100):0;
+    const contPct=target?Math.round(contracts/target*100):0;
+    const sortedOpen=[...items].sort((a,b)=>b.open_pct-a.open_pct);
+    return {
+      name,items,target,opened,contracts,standard,franchise,openPct,contPct,
+      gap:Math.max(target-opened,0),
+      best:sortedOpen[0],attention:sortedOpen[sortedOpen.length-1]
+    };
+  }).sort((a,b)=>b.openPct-a.openPct || b.contPct-a.contPct || b.opened-a.opened);
+
+  const totalTarget=executives.reduce((s,e)=>s+e.target,0);
+  const totalOpen=executives.reduce((s,e)=>s+e.opened,0);
+  const totalContract=executives.reduce((s,e)=>s+e.contracts,0);
+  const overallOpen=totalTarget?Math.round(totalOpen/totalTarget*100):0;
+  const overallCont=totalTarget?Math.round(totalContract/totalTarget*100):0;
+  const widest=[...executives].sort((a,b)=>b.items.length-a.items.length)[0];
+
+  summaryEl.innerHTML=[
+    {label:'تعداد مدیران اجرایی',value:executives.length+' نفر',hint:valid.length+' مدیر منطقه تحت پوشش'},
+    {label:'تحقق افتتاح تجمیعی',value:overallOpen+'%',hint:totalOpen+' افتتاح از هدف '+totalTarget},
+    {label:'تحقق قراردادی تجمیعی',value:overallCont+'%',hint:totalContract+' قرارداد ثبت‌شده'},
+    {label:'بیشترین دامنه مدیریت',value:escHtml((widest&&widest.name)||'—'),hint:((widest&&widest.items.length)||0)+' مدیر منطقه'}
+  ].map(x=>`<div class="execSummaryItem"><div class="execSummaryLabel">${x.label}</div><div class="execSummaryValue">${x.value}</div><div class="execSummaryHint">${x.hint}</div></div>`).join('');
+
+  gridEl.innerHTML=executives.map((e,i)=>{
+    const status=execStatus(e.openPct);
+    const members=e.items.map(d=>d.name).join('، ');
+    const openWidth=Math.min(Math.max(e.openPct,0),100);
+    const contWidth=Math.min(Math.max(e.contPct,0),100);
+    const attentionText=e.attention?`${e.attention.name} · ${e.attention.open_pct}%`:'—';
+    const bestText=e.best?`${e.best.name} · ${e.best.open_pct}%`:'—';
+    return `
+      <article class="execCard ${i===0?'isLeader':''}">
+        <div class="execCardTop">
+          <div class="execRank">${i===0?'👑':i+1}</div>
+          <div class="execNameWrap">
+            <div class="execName">${escHtml(e.name)}</div>
+            <div class="execCoverage">${e.items.length} مدیر منطقه زیرمجموعه</div>
+          </div>
+          <span class="execStatus ${status[1]}">${status[0]}</span>
+        </div>
+
+        <div class="execMetrics">
+          <div class="execMetric"><div class="execMetricVal green">${e.opened}/${e.target}</div><div class="execMetricLabel">افتتاح / هدف</div></div>
+          <div class="execMetric"><div class="execMetricVal blue">${e.contracts}</div><div class="execMetricLabel">مجموع قرارداد</div></div>
+          <div class="execMetric"><div class="execMetricVal gold">${e.gap}</div><div class="execMetricLabel">فاصله تا هدف افتتاح</div></div>
+        </div>
+
+        <div class="execProgress">
+          <div class="execProgressTop"><span class="execProgressLabel">🥇 تحقق افتتاح</span><span class="execProgressValue" style="color:${lvlClr(e.openPct)}">${e.openPct}%</span></div>
+          <div class="execTrack"><div class="execFill open" style="width:${openWidth}%"></div></div>
+        </div>
+        <div class="execProgress">
+          <div class="execProgressTop"><span class="execProgressLabel">🥈 تحقق قراردادی</span><span class="execProgressValue" style="color:${lvlClr(e.contPct)}">${e.contPct}%</span></div>
+          <div class="execTrack"><div class="execFill cont" style="width:${contWidth}%"></div></div>
+        </div>
+
+        <div class="execInsights">
+          <div class="execInsight"><div class="execInsightLabel">بهترین عملکرد افتتاح</div><div class="execInsightValue">${escHtml(bestText)}</div></div>
+          <div class="execInsight"><div class="execInsightLabel">نیازمند توجه فوری</div><div class="execInsightValue attention">${escHtml(attentionText)}</div></div>
+        </div>
+
+        <details class="execMembers">
+          <summary>مدیران مناطق تحت پوشش</summary>
+          <div class="execMembersList">${escHtml(members)}</div>
+        </details>
+      </article>`;
+  }).join('');
 }
 
 // ============ TOP 3 ============
