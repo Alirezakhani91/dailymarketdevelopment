@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>داشبرد عملکرد توسعه - مرداد</title>
+<title>داشبرد عملکرد توسعه دیلی مارکت</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/vazirmatn@5.3.0/index.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -300,9 +300,35 @@ tbody tr:hover{background:#1a2030;}
 .execSummaryValue{font-size:16px;font-weight:900;color:#fff;margin-top:3px;line-height:1.35;overflow-wrap:anywhere;}
 .execSummaryHint{font-size:9px;color:#64748b;margin-top:2px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .execGrid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:11px;}
-.execCard{background:linear-gradient(155deg,rgba(255,255,255,.072),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.11);border-radius:15px;padding:14px;min-width:0;transition:transform .2s,border-color .2s,background .2s;}
+.execCard{background:linear-gradient(155deg,rgba(255,255,255,.072),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.11);border-radius:15px;padding:14px;min-width:0;transition:transform .2s,border-color .2s,background .2s;cursor:pointer;}
 .execCard:hover{transform:translateY(-3px);border-color:rgba(79,142,247,.42);background:linear-gradient(155deg,rgba(255,255,255,.095),rgba(255,255,255,.045));}
 .execCard.isLeader{border-color:rgba(245,158,11,.48);background:linear-gradient(155deg,rgba(245,158,11,.13),rgba(255,255,255,.04));box-shadow:inset 0 0 0 1px rgba(245,158,11,.05);}
+.execCard.isSelected{
+  border-color:#60a5fa !important;
+  box-shadow:0 0 0 2px rgba(96,165,250,.18),0 14px 34px rgba(0,0,0,.34);
+  background:linear-gradient(155deg,rgba(59,130,246,.16),rgba(255,255,255,.045));
+}
+.execClickHint{
+  margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.07);
+  font-size:8px;color:#718096;display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.execClickHint strong{color:#60a5fa;font-weight:800;}
+.activeFilterNotice{
+  display:none;margin:12px 28px 0;padding:10px 14px;border-radius:11px;
+  background:rgba(59,130,246,.09);border:1px solid rgba(96,165,250,.28);
+  color:#cbd5e1;font-size:11px;align-items:center;justify-content:space-between;gap:10px;
+}
+.activeFilterNotice.show{display:flex;}
+.activeFilterNotice b{color:#fff;}
+.activeFilterNotice button{
+  border:0;border-radius:7px;padding:5px 10px;background:rgba(255,255,255,.08);
+  color:#93c5fd;cursor:pointer;font-family:inherit;font-size:10px;
+}
+@media(max-width:700px){
+  .activeFilterNotice{margin:10px 12px 0;align-items:flex-start;line-height:1.7;}
+  .execClickHint{font-size:8px;}
+}
+
 .execCardTop{display:flex;align-items:center;gap:10px;margin-bottom:11px;}
 .execRank{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:0 0 34px;background:#1e293b;border:1px solid rgba(255,255,255,.1);font-size:12px;font-weight:900;color:#cbd5e1;}
 .execCard.isLeader .execRank{background:linear-gradient(135deg,#fbbf24,#d97706);color:#111827;border-color:transparent;}
@@ -567,6 +593,7 @@ tbody tr:hover{background:#1a2030;}
 }
 </style>
 </head>
+
 <body>
 
 <!-- HEADER -->
@@ -574,14 +601,14 @@ tbody tr:hover{background:#1a2030;}
   <div class="hLeft">
     <div class="hIcon">📊</div>
     <div>
-      <div class="hTitle">داشبرد عملکرد توسعه</div>
-      <div class="hSub">اولویت ۱: تحقق هدف افتتاح &nbsp;|&nbsp; اولویت ۲: تحقق هدف قراردادی</div>
+      <div class="hTitle">داشبرد عملکرد توسعه دیلی مارکت</div>
+      <div class="hSub">نمای مدیریتی عملکرد قرارداد، افتتاح و تحقق اهداف توسعه ۱۴۰۵</div>
     </div>
   </div>
   <div class="hRight">
-    <div class="hPriority">🥇 اول: افتتاح &nbsp;|&nbsp; 🥈 دوم: قرارداد</div>
+    <div class="hPriority">🥇 عملکرد کل تا مهر &nbsp;|&nbsp; 🥈 عملکرد از شهریور</div>
     <div class="hBadge">📅 <span id="hDate"></span></div>
-    <div class="hBadge" id="hTotal">۲۴ مدیر</div>
+    <div class="hBadge" id="hTotal">۲۴ منطقه</div>
     <div class="hBadge" id="syncStatus">🔄 در حال اتصال به گوگل شیت...</div>
     <button class="btn btnG" id="refreshBtn" onclick="loadDataFromSheet(true)">↻ بروزرسانی</button>
   </div>
@@ -592,38 +619,42 @@ tbody tr:hover{background:#1a2030;}
   <div class="prItem">
     <div class="prNum pr1">۱</div>
     <div>
-      <div class="prText">تحقق هدف افتتاح</div>
-      <div class="prLabel">مهم‌ترین شاخص عملکردی</div>
+      <div class="prText">تحقق کل هدف قراردادی تا مهر</div>
+      <div class="prLabel">تصویر تجمعی عملکرد سال ۱۴۰۵ تا پایان مهر</div>
     </div>
   </div>
   <div style="width:1px;height:30px;background:#2a3550;"></div>
   <div class="prItem">
     <div class="prNum pr2">۲</div>
     <div>
-      <div class="prText">تحقق هدف قراردادی</div>
-      <div class="prLabel">شاخص دوم عملکردی</div>
+      <div class="prText">تحقق هدف قراردادی از شهریور</div>
+      <div class="prLabel">کل قرارداد از شهریور ÷ هدف جدید شهریور تا مهر</div>
     </div>
   </div>
   <div style="margin-right:auto;font-size:11px;color:#8892a4;">
-    کلیه نمودارها و جداول بر اساس این اولویت‌بندی مرتب شده‌اند
+    داده‌ها از Google Sheet از طریق Google Apps Script خوانده می‌شوند
   </div>
 </div>
 
 <!-- FILTER BAR -->
 <div class="filterBar">
   <span class="fLabel">🔍</span>
-  <input class="sInp" id="srch" placeholder="جستجو نام مدیر..." oninput="applyFilters()">
+  <input class="sInp" id="srch" placeholder="جستجو مدیر منطقه یا اجرایی..." oninput="applyFilters()">
 
-  <select id="fOpen" onchange="applyFilters()">
-    <option value="">🥇 همه - تحقق افتتاح</option>
+  <select id="fExec" onchange="applyFilters()">
+    <option value="">همه مدیران اجرایی</option>
+  </select>
+
+  <select id="fYtd" onchange="applyFilters()">
+    <option value="">🥇 همه - تحقق تا مهر</option>
     <option value="ex">عالی ≥100%</option>
     <option value="gd">خوب 70-99%</option>
     <option value="av">متوسط 40-69%</option>
     <option value="lw">ضعیف &lt;40%</option>
   </select>
 
-  <select id="fCont" onchange="applyFilters()">
-    <option value="">🥈 همه - تحقق قراردادی</option>
+  <select id="fNew" onchange="applyFilters()">
+    <option value="">🥈 همه - تحقق قراردادی از شهریور</option>
     <option value="ex">عالی ≥100%</option>
     <option value="gd">خوب 70-99%</option>
     <option value="av">متوسط 40-69%</option>
@@ -631,48 +662,109 @@ tbody tr:hover{background:#1a2030;}
   </select>
 
   <select id="fFran" onchange="applyFilters()">
-    <option value="">همه - فرانچایز</option>
-    <option value="y">دارای فرانچایز</option>
-    <option value="n">بدون فرانچایز</option>
-  </select>
-
-  <select id="fStd" onchange="applyFilters()">
-    <option value="">همه - ستادی</option>
-    <option value="h">ستادی بالا ≥10</option>
-    <option value="m">ستادی متوسط 5-9</option>
-    <option value="l">ستادی پایین &lt;5</option>
+    <option value="">همه - کل قرارداد از شهریور فرانچایز</option>
+    <option value="y">دارای فرانچایز جدید</option>
+    <option value="n">بدون فرانچایز جدید</option>
   </select>
 
   <select id="fSort" onchange="applyFilters()">
-    <option value="open_pct_d">🥇 تحقق افتتاح ↓</option>
-    <option value="cont_pct_d">🥈 تحقق قراردادی ↓</option>
-    <option value="open_abs_d">افتتاح (عدد) ↓</option>
-    <option value="total_d">مجموع قرارداد ↓</option>
-    <option value="target_d">هدف ↓</option>
-    <option value="name">نام</option>
+    <option value="ytd_pct_d">🥇 تحقق تا مهر ↓</option>
+    <option value="new_pct_d">🥈 تحقق قراردادی از شهریور ↓</option>
+    <option value="total_d">کل قرارداد ۱۴۰۵ ↓</option>
+    <option value="opened_d">کل افتتاح ۱۴۰۵ ↓</option>
+    <option value="gap_d">بیشترین Gap تا مهر ↓</option>
+    <option value="name">نام منطقه</option>
   </select>
 
   <button class="btn btnG" onclick="resetAll()">🔄 ریست</button>
   <div class="rCount" id="rCount">نمایش ۲۴ از ۲۴</div>
 </div>
 
+<div class="activeFilterNotice" id="activeExecNotice">
+  <div>فیلتر فعال: فقط مناطق تحت مدیریت <b id="activeExecName"></b> نمایش داده می‌شوند.</div>
+  <button type="button" onclick="clearExecutiveFilter()">نمایش همه مدیران</button>
+</div>
+
 <!-- KPI -->
 <div class="kpiGrid" id="kpiGrid"></div>
+
+
+<!-- PERFORMANCE LOGIC -->
+<div class="sec">
+  <div class="g2">
+    <div class="card priority2Card">
+      <div class="cHead">
+        <div>
+          <div class="cTitle">🚀 مسیر عملکرد بعد از تغییر هدف در شهریور</div>
+          <div class="cSub">این بخش فقط عملکرد دوره جدید را می‌سنجد و با عملکرد قبل از شهریور مخلوط نمی‌شود.</div>
+        </div>
+        <span class="prTag prTag2">از شهریور</span>
+      </div>
+      <div class="cmpWrap">
+        <div class="cmpItem">
+          <div class="cmpLabel">هدف جدید شهریور تا مهر</div>
+          <div class="cmpBg"><div class="cmpFill" id="logicNewTargetBar" style="width:100%;background:#f59e0b;"></div></div>
+          <div class="cmpVal" id="logicNewTarget">—</div>
+        </div>
+        <div class="cmpItem">
+          <div class="cmpLabel">کل قرارداد از شهریور</div>
+          <div class="cmpBg"><div class="cmpFill" id="logicNewActualBar" style="background:#4f8ef7;"></div></div>
+          <div class="cmpVal" id="logicNewActual">—</div>
+        </div>
+        <div style="margin-top:8px;padding:12px 14px;border-radius:10px;background:rgba(79,142,247,.08);border:1px solid rgba(79,142,247,.18);">
+          <div style="font-size:10px;color:#8892a4;">فرمول</div>
+          <div style="margin-top:5px;font-size:13px;font-weight:800;color:#fff;">
+            کل قرارداد از شهریور ÷ هدف جدید شهریور تا مهر =
+            <span id="logicNewPct" style="color:#60a5fa;">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card priorityCard">
+      <div class="cHead">
+        <div>
+          <div class="cTitle">📅 مسیر عملکرد تجمعی سال تا پایان مهر</div>
+          <div class="cSub">این بخش تصویر کلی سال ۱۴۰۵ را تا پایان مهر نشان می‌دهد.</div>
+        </div>
+        <span class="prTag prTag1">تجمعی تا مهر</span>
+      </div>
+      <div class="cmpWrap">
+        <div class="cmpItem">
+          <div class="cmpLabel">هدف تجمعی تا مهر</div>
+          <div class="cmpBg"><div class="cmpFill" id="logicYtdTargetBar" style="width:100%;background:#f59e0b;"></div></div>
+          <div class="cmpVal" id="logicYtdTarget">—</div>
+        </div>
+        <div class="cmpItem">
+          <div class="cmpLabel">مجموع کل قرارداد</div>
+          <div class="cmpBg"><div class="cmpFill" id="logicYtdActualBar" style="background:#10b981;"></div></div>
+          <div class="cmpVal" id="logicYtdActual">—</div>
+        </div>
+        <div style="margin-top:8px;padding:12px 14px;border-radius:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.18);">
+          <div style="font-size:10px;color:#8892a4;">فرمول</div>
+          <div style="margin-top:5px;font-size:13px;font-weight:800;color:#fff;">
+            مجموع کل قرارداد ÷ هدف تا مهر =
+            <span id="logicYtdPct" style="color:#34d399;">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- GAUGE -->
 <div class="sec">
   <div class="card priorityCard">
     <div class="cHead">
       <div>
-        <div class="cTitle">🎯 شاخص‌های کلیدی بر اساس اولویت</div>
-        <div class="cSub">اولویت ۱: افتتاح &nbsp;|&nbsp; اولویت ۲: قراردادی</div>
+        <div class="cTitle">🎯 تصویر کل کشور</div>
+        <div class="cSub">دو لایه هدف: عملکرد تجمعی تا مهر و عملکرد پس از ابلاغ هدف جدید از شهریور</div>
       </div>
-      <span class="prTag prTag1">مهم‌ترین معیارها</span>
+      <span class="prTag prTag1">Executive Snapshot</span>
     </div>
     <div class="gaugeRow" id="gaugeRow"></div>
   </div>
 </div>
-
 
 <!-- EXECUTIVE MANAGERS -->
 <div class="execSection">
@@ -681,11 +773,11 @@ tbody tr:hover{background:#1a2030;}
       <div class="execHeadMain">
         <div class="execEyebrow">👑 نمای ویژه مدیریت اجرایی</div>
         <div class="execTitle" id="execManagersTitle">عملکرد تجمیعی مدیران اجرایی</div>
-        <div class="execSub">نمای مدیریتی مناطق تحت پوشش هر مدیر اجرایی؛ رتبه‌بندی ابتدا بر اساس تحقق افتتاح و سپس تحقق قراردادی انجام می‌شود.</div>
+        <div class="execSub">تجمیع مناطق هر مدیر اجرایی بر اساس اهداف و عملکرد؛ با کلیک روی هر کارت، کل داشبورد فقط مناطق همان مدیر را نمایش می‌دهد.</div>
       </div>
       <div class="execRule">
-        <span class="p1">اولویت ۱: افتتاح</span>
-        <span class="p2">اولویت ۲: قرارداد</span>
+        <span class="p1">اولویت ۱: تحقق تا مهر</span>
+        <span class="p2">اولویت ۲: تحقق قراردادی از شهریور</span>
       </div>
     </div>
     <div class="execSummary" id="execSummary"></div>
@@ -693,28 +785,28 @@ tbody tr:hover{background:#1a2030;}
   </section>
 </div>
 
-<!-- TOP 3 افتتاح + TOP 3 قراردادی -->
+<!-- TOP 3 -->
 <div class="sec">
   <div class="g2">
     <div class="card priorityCard">
       <div class="cHead">
         <div>
-          <div class="cTitle">🥇 برترین‌ها - تحقق افتتاح</div>
-          <div class="cSub">اولویت اول | بر اساس % افتتاح</div>
+          <div class="cTitle">🥇 برترین مناطق - تحقق هدف تا مهر</div>
+          <div class="cSub">مجموع کل قرارداد ÷ هدف تجمعی تا مهر</div>
         </div>
         <span class="prTag prTag1">اولویت ۱</span>
       </div>
-      <div class="top3Wrap" id="top3Open"></div>
+      <div class="top3Wrap" id="top3Ytd"></div>
     </div>
     <div class="card priority2Card">
       <div class="cHead">
         <div>
-          <div class="cTitle">🥈 برترین‌ها - تحقق قراردادی</div>
-          <div class="cSub">اولویت دوم | بر اساس % قرارداد</div>
+          <div class="cTitle">🥈 برترین مناطق - تحقق قراردادی از شهریور</div>
+          <div class="cSub">کل قرارداد از شهریور ÷ هدف جدید شهریور تا مهر</div>
         </div>
         <span class="prTag prTag2">اولویت ۲</span>
       </div>
-      <div class="top3Wrap" id="top3Cont"></div>
+      <div class="top3Wrap" id="top3New"></div>
     </div>
   </div>
 </div>
@@ -723,20 +815,20 @@ tbody tr:hover{background:#1a2030;}
 <div class="sec">
   <div class="card">
     <div class="cHead">
-      <div class="cTitle">🏆 رتبه‌بندی دوگانه مدیران</div>
+      <div class="cTitle">🏆 رتبه‌بندی دوگانه مناطق</div>
       <div style="display:flex;gap:10px;">
-        <span class="prTag prTag1">اولویت ۱: افتتاح</span>
-        <span class="prTag prTag2">اولویت ۲: قرارداد</span>
+        <span class="prTag prTag1">تحقق تا مهر</span>
+        <span class="prTag prTag2">هدف جدید از شهریور</span>
       </div>
     </div>
     <div class="dualLb">
       <div class="dualSide">
-        <div class="dualHeader" style="color:#10b981;">🥇 رتبه‌بندی تحقق افتتاح</div>
-        <div id="lbOpen"></div>
+        <div class="dualHeader" style="color:#10b981;">🥇 رتبه‌بندی تحقق هدف تا مهر</div>
+        <div id="lbYtd"></div>
       </div>
       <div class="dualSide">
-        <div class="dualHeader" style="color:#4f8ef7;">🥈 رتبه‌بندی تحقق قراردادی</div>
-        <div id="lbCont"></div>
+        <div class="dualHeader" style="color:#4f8ef7;">🥈 رتبه‌بندی تحقق قراردادی از شهریور</div>
+        <div id="lbNew"></div>
       </div>
     </div>
   </div>
@@ -747,12 +839,12 @@ tbody tr:hover{background:#1a2030;}
   <div class="card priorityCard">
     <div class="cHead">
       <div>
-        <div class="cTitle">📊 مقایسه % تحقق افتتاح و قراردادی</div>
-        <div class="cSub">مرتب شده بر اساس اولویت اول (% افتتاح)</div>
+        <div class="cTitle">📊 مقایسه دو شاخص تحقق</div>
+        <div class="cSub">تحقق تجمعی تا مهر در برابر تحقق هدف قراردادی از شهریور</div>
       </div>
       <div class="legend">
-        <div class="legItem"><div class="legDot" style="background:#10b981;"></div>% تحقق افتتاح (اولویت ۱)</div>
-        <div class="legItem"><div class="legDot" style="background:#4f8ef7;"></div>% تحقق قراردادی (اولویت ۲)</div>
+        <div class="legItem"><div class="legDot" style="background:#10b981;"></div>تحقق هدف تا مهر</div>
+        <div class="legItem"><div class="legDot" style="background:#4f8ef7;"></div>تحقق قراردادی از شهریور</div>
       </div>
     </div>
     <div class="chartWrap" style="height:320px;">
@@ -766,10 +858,10 @@ tbody tr:hover{background:#1a2030;}
   <div class="card">
     <div class="cHead">
       <div>
-        <div class="cTitle">🥧 توزیع سطح تحقق افتتاح</div>
-        <div class="cSub">اولویت اول - درصد مدیران</div>
+        <div class="cTitle">🥧 توزیع سطح تحقق هدف تا مهر</div>
+        <div class="cSub">تعداد مناطق در هر سطح عملکرد</div>
       </div>
-      <span class="prTag prTag1">اولویت ۱</span>
+      <span class="prTag prTag1">YTD Performance</span>
     </div>
     <div class="chartWrap" style="height:280px;max-width:420px;margin:0 auto;">
       <canvas id="donutChart"></canvas>
@@ -777,19 +869,18 @@ tbody tr:hover{background:#1a2030;}
   </div>
 </div>
 
-<!-- BAR: هدف vs قراردادها -->
+<!-- ABSOLUTE -->
 <div class="sec">
   <div class="card">
     <div class="cHead">
       <div>
-        <div class="cTitle">📈 هدف در برابر ستادی و فرانچایز</div>
-        <div class="cSub">مرتب شده بر اساس اولویت اول</div>
+        <div class="cTitle">📈 هدف تا مهر، کل قرارداد و کل افتتاح</div>
+        <div class="cSub">مقایسه حجم واقعی عملکرد هر منطقه</div>
       </div>
       <div class="legend">
-        <div class="legItem"><div class="legDot" style="background:#f59e0b;"></div>هدف</div>
-        <div class="legItem"><div class="legDot" style="background:#4f8ef7;"></div>ستادی</div>
-        <div class="legItem"><div class="legDot" style="background:#7c3aed;"></div>فرانچایز</div>
-        <div class="legItem"><div class="legDot" style="background:#10b981;"></div>افتتاح</div>
+        <div class="legItem"><div class="legDot" style="background:#f59e0b;"></div>هدف تا مهر</div>
+        <div class="legItem"><div class="legDot" style="background:#4f8ef7;"></div>کل قرارداد</div>
+        <div class="legItem"><div class="legDot" style="background:#10b981;"></div>کل افتتاح</div>
       </div>
     </div>
     <div class="chartWrap" style="height:300px;">
@@ -804,8 +895,8 @@ tbody tr:hover{background:#1a2030;}
     <div class="card">
       <div class="cHead">
         <div>
-          <div class="cTitle">🏗️ ترکیب قرارداد: ستادی و فرانچایز</div>
-          <div class="cSub">مرتب بر اساس اولویت ۱</div>
+          <div class="cTitle">🏗️ ترکیب کل قراردادهای ۱۴۰۵</div>
+          <div class="cSub">ستادی در برابر فرانچایز</div>
         </div>
       </div>
       <div class="chartWrap" style="height:280px;">
@@ -815,8 +906,8 @@ tbody tr:hover{background:#1a2030;}
     <div class="card">
       <div class="cHead">
         <div>
-          <div class="cTitle">🫧 رابطه هدف، افتتاح و قرارداد</div>
-          <div class="cSub">اندازه حباب = مجموع قرارداد</div>
+          <div class="cTitle">🫧 ماتریس عملکرد استراتژیک</div>
+          <div class="cSub">محور افقی: هدف جدید | محور عمودی: عملکرد تجمعی | اندازه حباب: کل قرارداد</div>
         </div>
       </div>
       <div class="chartWrap" style="height:280px;">
@@ -830,7 +921,7 @@ tbody tr:hover{background:#1a2030;}
 <div class="sec">
   <div class="card">
     <div class="cHead">
-      <div class="cTitle">📊 مقایسه کلی شاخص‌های مجموع</div>
+      <div class="cTitle">📊 مقایسه کلی شاخص‌های کشور</div>
     </div>
     <div class="cmpWrap" id="cmpWrap"></div>
   </div>
@@ -840,24 +931,31 @@ tbody tr:hover{background:#1a2030;}
 <div class="sec secLast">
   <div class="card">
     <div class="cHead">
-      <div class="cTitle">📋 جدول کامل عملکرد - مرتب بر اساس اولویت</div>
+      <div>
+        <div class="cTitle">📋 جدول کامل عملکرد توسعه</div>
+        <div class="cSub">تمام ستون‌های کلیدی فایل جدید در یک نمای مدیریتی</div>
+      </div>
       <div style="font-size:11px;color:#8892a4;">کلیک روی هر ستون برای مرتب‌سازی</div>
     </div>
     <div class="tblWrap">
-      <table>
+      <table style="min-width:1500px;">
         <thead id="tHead">
           <tr>
             <th>#</th>
             <th data-key="name" onclick="tSort('name')">مدیر منطقه<span class="sortArrow"></span></th>
-            <th class="thP1" data-key="open_pct" onclick="tSort('open_pct')">🥇 % تحقق افتتاح<span class="sortArrow"></span></th>
-            <th class="thP2" data-key="cont_pct" onclick="tSort('cont_pct')">🥈 % تحقق قرارداد<span class="sortArrow"></span></th>
-            <th data-key="target" onclick="tSort('target')">هدف<span class="sortArrow"></span></th>
-            <th data-key="open_abs" onclick="tSort('open_abs')">افتتاح (عدد)<span class="sortArrow"></span></th>
-            <th data-key="total" onclick="tSort('total')">مجموع قرارداد<span class="sortArrow"></span></th>
-            <th data-key="standard" onclick="tSort('standard')">ستادی<span class="sortArrow"></span></th>
-            <th data-key="franchise" onclick="tSort('franchise')">فرانچایز<span class="sortArrow"></span></th>
-            <th>سطح افتتاح</th>
-            <th>سطح قرارداد</th>
+            <th data-key="exec" onclick="tSort('exec')">مدیر اجرایی<span class="sortArrow"></span></th>
+            <th class="thP1" data-key="ytd_pct" onclick="tSort('ytd_pct')">🥇 تحقق تا مهر<span class="sortArrow"></span></th>
+            <th class="thP2" data-key="new_pct" onclick="tSort('new_pct')">🥈 تحقق قراردادی از شهریور<span class="sortArrow"></span></th>
+            <th data-key="ytd_target" onclick="tSort('ytd_target')">هدف تا مهر<span class="sortArrow"></span></th>
+            <th data-key="total_contracts" onclick="tSort('total_contracts')">کل قرارداد<span class="sortArrow"></span></th>
+            <th data-key="total_opened" onclick="tSort('total_opened')">کل افتتاح<span class="sortArrow"></span></th>
+            <th data-key="new_target" onclick="tSort('new_target')">هدف شهریور تا مهر<span class="sortArrow"></span></th>
+            <th data-key="new_contracts" onclick="tSort('new_contracts')">کل قرارداد از شهریور<span class="sortArrow"></span></th>
+            <th data-key="new_hq" onclick="tSort('new_hq')">ستادی جدید<span class="sortArrow"></span></th>
+            <th data-key="new_franchise" onclick="tSort('new_franchise')">فرانچایز جدید<span class="sortArrow"></span></th>
+            <th data-key="opening_pipeline" onclick="tSort('opening_pipeline')">درحال افتتاح<span class="sortArrow"></span></th>
+            <th data-key="total_hq" onclick="tSort('total_hq')">کل ستادی<span class="sortArrow"></span></th>
+            <th data-key="total_franchise" onclick="tSort('total_franchise')">کل فرانچایز<span class="sortArrow"></span></th>
           </tr>
         </thead>
         <tbody id="tBody"></tbody>
@@ -867,75 +965,40 @@ tbody tr:hover{background:#1a2030;}
 </div>
 
 <script>
-// اجبار فونت وزیرمتن برای تمام نوشته‌های داخل نمودارهای Chart.js
 Chart.defaults.font.family = "Vazirmatn Variable, Vazirmatn, Vazir, Tahoma, Arial, sans-serif";
 Chart.defaults.font.weight = '500';
 Chart.defaults.color = '#8892a4';
 
-// ============ DATA SOURCE: GOOGLE SHEET (زنده) ============
-// این آدرس همون لینک "Publish to web" شماست که به فرمت CSV تبدیل شده.
-// هر وقت خود گوگل شیت رو آپدیت کنید، این لینک هم به‌روز می‌شه (معمولاً با کمی تاخیر، چند دقیقه).
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-NWtZeji3kDVWvdrwv5MWkI6kHBZXQKbpokdjXqlErl38nhd5YOUTaczOzNJrzAENWaLGwo9udSZX/pub?output=csv";
+// Google Apps Script Web App API
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxR0BMOAjbgVuYqaxJxQPBtIPYC_K7IxgMA2PaLrE5KREqSqEDvjWUqryIVNwob6cnm/exec";
 
-// اگه به هر دلیلی اتصال به گوگل شیت برقرار نشد (مثلاً آفلاین)، از این دیتای قبلی به‌عنوان پشتیبان (fallback) استفاده می‌شه
+// Snapshot مطابق فایل «هدف جدید توسعه (3).xlsx»
 const FALLBACK_DATA = [
-  {name:"اتحاد مصطفی",       target:8,  standard:24, franchise:3, open_abs:12, total:27, cont_pct:338, open_pct:150},
-  {name:"بهنان مسعود",        target:7,  standard:14, franchise:2, open_abs:9,  total:16, cont_pct:229, open_pct:129},
-  {name:"بهادری مرتضی",       target:10, standard:10, franchise:5, open_abs:7,  total:15, cont_pct:150, open_pct:70},
-  {name:"مرزبان یزدان",        target:7,  standard:4,  franchise:6, open_abs:6,  total:10, cont_pct:143, open_pct:86},
-  {name:"اثنی عشری حسین",      target:10, standard:5,  franchise:8, open_abs:4,  total:13, cont_pct:130, open_pct:40},
-  {name:"بختیاریان رضا",       target:7,  standard:4,  franchise:5, open_abs:5,  total:9,  cont_pct:129, open_pct:71},
-  {name:"حسن زاده سید امین",   target:8,  standard:8,  franchise:2, open_abs:7,  total:10, cont_pct:125, open_pct:88},
-  {name:"وجدان رضا",           target:9,  standard:8,  franchise:2, open_abs:4,  total:10, cont_pct:111, open_pct:44},
-  {name:"منجزی وند رضا",       target:7,  standard:7,  franchise:0, open_abs:4,  total:7,  cont_pct:100, open_pct:57},
-  {name:"کلالی مهیار",         target:16, standard:12, franchise:4, open_abs:10, total:16, cont_pct:100, open_pct:63},
-  {name:"جعفری رضا",           target:11, standard:10, franchise:0, open_abs:6,  total:10, cont_pct:91,  open_pct:55},
-  {name:"غرب گیلان",           target:8,  standard:7,  franchise:0, open_abs:6,  total:7,  cont_pct:88,  open_pct:75},
-  {name:"دشت افکن مهدی",       target:15, standard:12, franchise:1, open_abs:10, total:13, cont_pct:87,  open_pct:67},
-  {name:"عابد مجتبی",          target:12, standard:6,  franchise:4, open_abs:8,  total:10, cont_pct:83,  open_pct:67},
-  {name:"جمشیدی محمد",         target:10, standard:8,  franchise:0, open_abs:6,  total:8,  cont_pct:80,  open_pct:60},
-  {name:"اسگندری حجت",         target:14, standard:7,  franchise:3, open_abs:7,  total:10, cont_pct:71,  open_pct:50},
-  {name:"عزت شعار علی",        target:9,  standard:6,  franchise:1, open_abs:6,  total:7,  cont_pct:78,  open_pct:67},
-  {name:"سلمان زاده کیوان",    target:18, standard:14, franchise:0, open_abs:8,  total:14, cont_pct:78,  open_pct:44},
-  {name:"علی محمدی ساسان",     target:7,  standard:4,  franchise:1, open_abs:1,  total:5,  cont_pct:71,  open_pct:14},
-  {name:"قدرتی میلاد",         target:7,  standard:3,  franchise:2, open_abs:3,  total:5,  cont_pct:71,  open_pct:43},
-  {name:"فارسی علی",           target:7,  standard:3,  franchise:2, open_abs:3,  total:5,  cont_pct:71,  open_pct:43},
-  {name:"صادق سعید",           target:9,  standard:1,  franchise:5, open_abs:3,  total:6,  cont_pct:67,  open_pct:33},
-  {name:"پوررجی امید",         target:18, standard:9,  franchise:1, open_abs:6,  total:10, cont_pct:56,  open_pct:33},
-  {name:"پاشایی بهنام",        target:7,  standard:2,  franchise:1, open_abs:1,  total:3,  cont_pct:43,  open_pct:14},
+  {name:"اتحاد مصطفی",exec:"حسینی نسب سید عماد",target_sep:1,new_target:2,new_hq:2,new_franchise:0,new_contracts:2,opening_pipeline:3,new_pct:100,total_hq:26,total_franchise:4,total_contracts:30,total_opened:20,ytd_target:13,ytd_pct:230.77},
+  {name:"بهنان مسعود",exec:"محالی میثم",target_sep:3,new_target:6,new_hq:0,new_franchise:1,new_contracts:1,opening_pipeline:0,new_pct:16.67,total_hq:14,total_franchise:3,total_contracts:17,total_opened:14,ytd_target:17,ytd_pct:100},
+  {name:"حسن زاده سید امین",exec:"حسینی نسب سید عماد",target_sep:2,new_target:4,new_hq:0,new_franchise:2,new_contracts:2,opening_pipeline:0,new_pct:50,total_hq:8,total_franchise:5,total_contracts:13,total_opened:11,ytd_target:16,ytd_pct:81.25},
+  {name:"مرزبان یزدان",exec:"محسنی مجید",target_sep:3,new_target:5,new_hq:0,new_franchise:2,new_contracts:2,opening_pipeline:0,new_pct:40,total_hq:4,total_franchise:8,total_contracts:12,total_opened:9,ytd_target:16,ytd_pct:75},
+  {name:"بهادری مرتضی",exec:"حسینی نسب سید عماد",target_sep:3,new_target:5,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:1,new_pct:0,total_hq:13,total_franchise:5,total_contracts:18,total_opened:14,ytd_target:20,ytd_pct:90},
+  {name:"محجل - مناف‌زاده",exec:"هم مسلک بهمن",target_sep:3,new_target:7,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:0,new_pct:0,total_hq:6,total_franchise:3,total_contracts:9,total_opened:9,ytd_target:22,ytd_pct:40.91},
+  {name:"کلالی مهیار",exec:"محالی میثم",target_sep:4,new_target:9,new_hq:1,new_franchise:0,new_contracts:1,opening_pipeline:0,new_pct:11.11,total_hq:14,total_franchise:7,total_contracts:21,total_opened:17,ytd_target:34,ytd_pct:61.76},
+  {name:"بختیاریان رضا",exec:"محسنی مجید",target_sep:3,new_target:6,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:0,new_pct:0,total_hq:4,total_franchise:5,total_contracts:9,total_opened:7,ytd_target:17,ytd_pct:52.94},
+  {name:"عابد مجتبی",exec:"حسینی نسب سید عماد",target_sep:4,new_target:9,new_hq:0,new_franchise:1,new_contracts:1,opening_pipeline:0,new_pct:11.11,total_hq:6,total_franchise:8,total_contracts:14,total_opened:12,ytd_target:29,ytd_pct:48.28},
+  {name:"دشت افکن مهدی",exec:"نوری فرید",target_sep:5,new_target:10,new_hq:1,new_franchise:1,new_contracts:2,opening_pipeline:0,new_pct:20,total_hq:13,total_franchise:4,total_contracts:17,total_opened:14,ytd_target:34,ytd_pct:50},
+  {name:"منجزی وند رضا",exec:"محالی میثم",target_sep:3,new_target:6,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:0,new_pct:0,total_hq:7,total_franchise:0,total_contracts:7,total_opened:7,ytd_target:17,ytd_pct:41.18},
+  {name:"وجدان رضا",exec:"هم مسلک بهمن",target_sep:3,new_target:6,new_hq:0,new_franchise:5,new_contracts:5,opening_pipeline:0,new_pct:83.33,total_hq:8,total_franchise:7,total_contracts:15,total_opened:9,ytd_target:21,ytd_pct:71.43},
+  {name:"فارسی علی",exec:"محسنی مجید",target_sep:3,new_target:5,new_hq:1,new_franchise:3,new_contracts:4,opening_pipeline:0,new_pct:80,total_hq:3,total_franchise:9,total_contracts:12,total_opened:6,ytd_target:16,ytd_pct:75},
+  {name:"علی محمدی ساسان",exec:"محسنی مجید",target_sep:3,new_target:6,new_hq:2,new_franchise:2,new_contracts:4,opening_pipeline:0,new_pct:66.67,total_hq:7,total_franchise:6,total_contracts:13,total_opened:6,ytd_target:17,ytd_pct:76.47},
+  {name:"غرب گیلان",exec:"هم مسلک بهمن",target_sep:2,new_target:5,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:0,new_pct:0,total_hq:6,total_franchise:0,total_contracts:6,total_opened:6,ytd_target:18,ytd_pct:33.33},
+  {name:"جعفری رضا",exec:"نوری فرید",target_sep:4,new_target:8,new_hq:1,new_franchise:1,new_contracts:2,opening_pipeline:0,new_pct:25,total_hq:14,total_franchise:1,total_contracts:15,total_opened:11,ytd_target:27,ytd_pct:55.56},
+  {name:"اثنی عشری حسین",exec:"حسینی نسب سید عماد",target_sep:3,new_target:6,new_hq:0,new_franchise:3,new_contracts:3,opening_pipeline:0,new_pct:50,total_hq:2,total_franchise:13,total_contracts:15,total_opened:8,ytd_target:22,ytd_pct:68.18},
+  {name:"جمشیدی محمد",exec:"نوری فرید",target_sep:3,new_target:7,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:0,new_pct:0,total_hq:10,total_franchise:0,total_contracts:10,total_opened:7,ytd_target:24,ytd_pct:41.67},
+  {name:"اسگندری حجت",exec:"محالی میثم",target_sep:5,new_target:9,new_hq:1,new_franchise:0,new_contracts:1,opening_pipeline:0,new_pct:11.11,total_hq:8,total_franchise:3,total_contracts:11,total_opened:9,ytd_target:32,ytd_pct:34.38},
+  {name:"سلمان زاده کیوان",exec:"نوری فرید",target_sep:5,new_target:10,new_hq:0,new_franchise:2,new_contracts:2,opening_pipeline:1,new_pct:20,total_hq:15,total_franchise:2,total_contracts:17,total_opened:10,ytd_target:39,ytd_pct:43.59},
+  {name:"قدرتی میلاد",exec:"محسنی مجید",target_sep:3,new_target:6,new_hq:0,new_franchise:1,new_contracts:1,opening_pipeline:0,new_pct:16.67,total_hq:3,total_franchise:3,total_contracts:6,total_opened:4,ytd_target:18,ytd_pct:33.33},
+  {name:"صادقی سعید",exec:"هم مسلک بهمن",target_sep:3,new_target:7,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:0,new_pct:0,total_hq:1,total_franchise:8,total_contracts:9,total_opened:6,ytd_target:23,ytd_pct:39.13},
+  {name:"پوررجبی امید",exec:"نوری فرید",target_sep:4,new_target:8,new_hq:2,new_franchise:2,new_contracts:4,opening_pipeline:0,new_pct:50,total_hq:10,total_franchise:5,total_contracts:15,total_opened:9,ytd_target:36,ytd_pct:41.67},
+  {name:"پاشایی بهنام",exec:"هم مسلک بهمن",target_sep:3,new_target:7,new_hq:0,new_franchise:0,new_contracts:0,opening_pipeline:0,new_pct:0,total_hq:2,total_franchise:1,total_contracts:3,total_opened:3,ytd_target:20,ytd_pct:15}
 ];
-
-// نگاشت هوشمند ستون‌ها؛ محل ستون «مدیر اجرایی» می‌تواند در شیت تغییر کند.
-// در صورت نبود هدر استاندارد، ترتیب قبلی ستون‌ها به‌عنوان پشتیبان استفاده می‌شود.
-const COL = { name:0, target:1, standard:2, franchise:3, open_abs:4, total:5, cont_pct:6, open_pct:7, exec:-1 };
-
-const EXEC_FALLBACK_MAP = {
-  "اتحاد مصطفی":"حسینی نسب عماد",
-  "بهنان مسعود":"محالی میثم",
-  "بهادری مرتضی":"حسینی نسب عماد",
-  "مرزبان یزدان":"محسنی مجید",
-  "اثنی عشری حسین":"حسینی نسب عماد",
-  "بختیاریان رضا":"محسنی مجید",
-  "حسن زاده سید امین":"حسینی نسب عماد",
-  "وجدان رضا":"هم مسلک بهمن",
-  "منجزی وند رضا":"محالی میثم",
-  "کلالی مهیار":"محالی میثم",
-  "جعفری رضا":"نوری فرید",
-  "غرب گیلان":"هم مسلک بهمن",
-  "دشت افکن مهدی":"هم مسلک بهمن",
-  "عابد مجتبی":"حسینی نسب عماد",
-  "جمشیدی محمد":"نوری فرید",
-  "اسگندری حجت":"محالی میثم",
-  "عزت شعار علی":"هم مسلک بهمن",
-  "سلمان زاده کیوان":"نوری فرید",
-  "علی محمدی ساسان":"محسنی مجید",
-  "قدرتی میلاد":"محسنی مجید",
-  "فارسی علی":"محسنی مجید",
-  "صادق سعید":"هم مسلک بهمن",
-  "پوررجی امید":"نوری فرید",
-  "پاشایی بهنام":"هم مسلک بهمن"
-};
-FALLBACK_DATA.forEach(d=>{ d.exec=EXEC_FALLBACK_MAP[d.name] || d.exec || 'تعیین نشده'; });
 
 function normalizeHeader(v){
   return String(v??'')
@@ -944,156 +1007,297 @@ function normalizeHeader(v){
     .replace(/[٪%:()\-_/\\]/g,' ')
     .replace(/\s+/g,' ').trim().toLowerCase();
 }
-
-function findHeaderIndex(headers, aliases, fallback){
-  const normalizedAliases=aliases.map(normalizeHeader);
-  for(let i=0;i<headers.length;i++){
-    if(normalizedAliases.includes(headers[i])) return i;
-  }
-  for(let i=0;i<headers.length;i++){
-    if(normalizedAliases.some(a=>a && (headers[i].includes(a)||a.includes(headers[i])))) return i;
-  }
+function findHeaderIndex(headers, aliases, fallback=-1){
+  const a=aliases.map(normalizeHeader);
+  for(let i=0;i<headers.length;i++) if(a.includes(headers[i])) return i;
+  for(let i=0;i<headers.length;i++) if(a.some(x=>x && (headers[i].includes(x)||x.includes(headers[i])))) return i;
   return fallback;
+}
+function n(v){
+  const x=parseFloat(String(v??'').replace(/[,٪%]/g,'').trim());
+  return Number.isFinite(x)?x:0;
+}
+function pct(v){
+  let x=n(v);
+  // Google Sheets may expose percentages as 0.57 or 57 depending on formatting/export.
+  if(Math.abs(x)<=3) x*=100;
+  return x;
+}
+
+function mapObjectsToData(objects){
+  if(!Array.isArray(objects) || !objects.length) throw new Error('empty JSON data');
+
+  const rows = objects.map(obj => {
+    const normalized = {};
+    Object.entries(obj || {}).forEach(([k,v]) => {
+      normalized[normalizeHeader(k)] = v;
+    });
+
+    const get = aliases => {
+      for (const a of aliases.map(normalizeHeader)) {
+        if (a in normalized) return normalized[a];
+      }
+      for (const a of aliases.map(normalizeHeader)) {
+        const key = Object.keys(normalized).find(k => k.includes(a) || a.includes(k));
+        if (key) return normalized[key];
+      }
+      return "";
+    };
+
+    const name = String(get(['مدیر منطقه']) || '').trim();
+    if(!name) return null;
+
+    const exec = String(get(['مدیر اجرایی']) || '').trim() || 'تعیین نشده';
+    const target_sep = n(get(['هدف جدید از شهریور']));
+    const new_target = n(get(['هدف جدید از شهریور تا مهر']));
+    const new_hq = n(get(['قرارداد ستادی از شهریور','قرارداد ستادی']));
+    const new_franchise = n(get(['ترهین فرانچایز از شهریور','ترهین فرانچایز','قرارداد فرانچایز از شهریور','قرارداد فرانچایز']));
+    const explicit_new_contracts = n(get(['کل قرارداد از شهریور'])) || (new_hq + new_franchise);
+    const opening_pipeline = n(get(['درحال افتتاح','در حال افتتاح']));
+    const total_hq = n(get(['مجموع قرارداد ستادی']));
+    const total_franchise = n(get(['مجموع قرارداد فرانچایز']));
+    const total_contracts = n(get(['مجموع کل قرارداد','مجموع قرارداد']));
+    const total_opened = n(get(['مجموع افتتاح']));
+    const ytd_target = n(get(['هدف تا مهر ماه','هدف تا مهر']));
+
+    let new_pct = pct(get(['تحقق هدف جدید قراردادی از شهریور','تحقق هدف قراردادی از شهریور','تحقق هدف جدید قراردادی']));
+    if(!new_pct && new_target) new_pct = explicit_new_contracts / new_target * 100;
+
+    let ytd_pct = pct(get(['تحقق هدف قراردادی تا مهر','تحقق کل هدف قراردادی تا مهر']));
+    if(!ytd_pct && ytd_target) ytd_pct = total_contracts / ytd_target * 100;
+
+    return {
+      name, exec, target_sep, new_target, new_hq, new_franchise,
+      new_contracts: explicit_new_contracts,
+      opening_pipeline, new_pct,
+      total_hq, total_franchise, total_contracts, total_opened,
+      ytd_target, ytd_pct
+    };
+  }).filter(Boolean);
+
+  if(!rows.length) throw new Error('هیچ ردیفی در JSON پیدا نشد');
+  return rows;
 }
 
 function mapRowsToData(rows){
-  if(!rows || !rows.length) throw new Error('empty');
-  const num = v => { const n=parseFloat(String(v??'').replace(/[,٪%]/g,'')); return isNaN(n)?0:n; };
-  const headers=(rows[0]||[]).map(normalizeHeader);
+  if(!rows?.length) throw new Error('empty');
+  const h=(rows[0]||[]).map(normalizeHeader);
   const idx={
-    name:findHeaderIndex(headers,['مدیر منطقه','نام مدیر منطقه'],COL.name),
-    exec:findHeaderIndex(headers,['مدیر اجرایی','نام مدیر اجرایی'],COL.exec),
-    target:findHeaderIndex(headers,['هدف تا مرداد','هدف مرداد','هدف'],COL.target),
-    standard:findHeaderIndex(headers,['قرارداد ستادی','ستادی'],COL.standard),
-    franchise:findHeaderIndex(headers,['ترهین فرانچایز','قرارداد فرانچایز','فرانچایز'],COL.franchise),
-    open_abs:findHeaderIndex(headers,['مجموع افتتاح','تعداد افتتاح','افتتاح'],COL.open_abs),
-    total:findHeaderIndex(headers,['مجموع قرارداد','کل قرارداد'],COL.total),
-    cont_pct:findHeaderIndex(headers,['تحقق هدف قراردادی','درصد تحقق قرارداد','تحقق قرارداد'],COL.cont_pct),
-    open_pct:findHeaderIndex(headers,['تحقق هدف افتتاحیه','تحقق هدف افتتاح','درصد تحقق افتتاح'],COL.open_pct)
+    name:findHeaderIndex(h,['مدیر منطقه'],0),
+    exec:findHeaderIndex(h,['مدیر اجرایی'],1),
+    target_sep:findHeaderIndex(h,['هدف جدید از شهریور'],2),
+    new_target:findHeaderIndex(h,['هدف جدید از شهریور تا مهر'],3),
+    new_hq:findHeaderIndex(h,['قرارداد ستادی از شهریور','قرارداد ستادی'],4),
+    new_franchise:findHeaderIndex(h,['ترهین فرانچایز از شهریور','ترهین فرانچایز','قرارداد فرانچایز از شهریور','قرارداد فرانچایز'],5),
+    new_contracts:findHeaderIndex(h,['کل قرارداد از شهریور'],6),
+    opening_pipeline:findHeaderIndex(h,['درحال افتتاح','در حال افتتاح'],7),
+    new_pct:findHeaderIndex(h,['تحقق هدف جدید قراردادی از شهریور','تحقق هدف قراردادی از شهریور','تحقق هدف جدید قراردادی'],8),
+    total_hq:findHeaderIndex(h,['مجموع قرارداد ستادی'],9),
+    total_franchise:findHeaderIndex(h,['مجموع قرارداد فرانچایز'],10),
+    total_contracts:findHeaderIndex(h,['مجموع کل قرارداد','مجموع قرارداد'],11),
+    total_opened:findHeaderIndex(h,['مجموع افتتاح'],12),
+    ytd_target:findHeaderIndex(h,['هدف تا مهر ماه','هدف تا مهر'],13),
+    ytd_pct:findHeaderIndex(h,['تحقق هدف قراردادی تا مهر','تحقق کل هدف قراردادی تا مهر'],14)
   };
   const out=[];
   for(let i=1;i<rows.length;i++){
     const r=rows[i];
-    if(!r || idx.name<0 || !r[idx.name] || !String(r[idx.name]).trim()) continue;
+    if(!r || !String(r[idx.name]??'').trim()) continue;
     const name=String(r[idx.name]).trim();
-    const execFromSheet=idx.exec>=0 ? String(r[idx.exec]??'').trim() : '';
+    const exec=String(r[idx.exec]??'').trim() || 'تعیین نشده';
+    const new_hq=n(r[idx.new_hq]);
+    const new_franchise=n(r[idx.new_franchise]);
+    const new_target=n(r[idx.new_target]);
+    const explicit_new_contracts=idx.new_contracts>=0?n(r[idx.new_contracts]):(new_hq+new_franchise);
+    const total_contracts=n(r[idx.total_contracts]);
+    const ytd_target=n(r[idx.ytd_target]);
     out.push({
-      name,
-      exec:execFromSheet || EXEC_FALLBACK_MAP[name] || 'تعیین نشده',
-      target:num(r[idx.target]),
-      standard:num(r[idx.standard]),
-      franchise:num(r[idx.franchise]),
-      open_abs:num(r[idx.open_abs]),
-      total:num(r[idx.total]),
-      cont_pct:num(r[idx.cont_pct]),
-      open_pct:num(r[idx.open_pct])
+      name,exec,
+      target_sep:n(r[idx.target_sep]),
+      new_target,
+      new_hq,
+      new_franchise,
+      new_contracts:explicit_new_contracts,
+      opening_pipeline:n(r[idx.opening_pipeline]),
+      new_pct:idx.new_pct>=0?pct(r[idx.new_pct]):(new_target?(explicit_new_contracts/new_target*100):0),
+      total_hq:n(r[idx.total_hq]),
+      total_franchise:n(r[idx.total_franchise]),
+      total_contracts,
+      total_opened:n(r[idx.total_opened]),
+      ytd_target,
+      ytd_pct:idx.ytd_pct>=0?pct(r[idx.ytd_pct]):(ytd_target?total_contracts/ytd_target*100:0)
     });
   }
   if(!out.length) throw new Error('هیچ ردیفی پیدا نشد');
   return out;
 }
 
+
+async function testApiConnection(){
+  const res=await fetch(WEB_APP_URL+'?t='+Date.now(),{cache:'no-store',redirect:'follow'});
+  const raw=await res.text();
+  console.log('API status:',res.status);
+  console.log('API raw response:',raw);
+  return raw;
+}
+
 function setSyncStatus(msg, ok){
   const el=document.getElementById('syncStatus');
   if(!el) return;
-  el.textContent = msg;
-  el.style.color = ok===false ? '#ef4444' : (ok===true ? '#10b981' : '#8892a4');
+  el.textContent=msg;
+  el.style.color=ok===false?'#ef4444':ok===true?'#10b981':'#8892a4';
 }
 
-let ALL = [...FALLBACK_DATA];
+let ALL=[...FALLBACK_DATA];
 let DATA=[...ALL];
 let charts={};
-let tSortKey='open_pct', tSortDir=-1;
-const AUTO_REFRESH_MS = 5*60*1000; // هر ۵ دقیقه یک‌بار خودکار چک می‌کنه
+let tSortKey='ytd_pct', tSortDir=-1;
+const AUTO_REFRESH_MS=5*60*1000;
+
+const lvlClr=p=>p>=100?'#10b981':p>=70?'#4f8ef7':p>=40?'#f59e0b':'#ef4444';
+const lvlTag=p=>p>=100?['عالی','tex']:p>=70?['خوب','tgd']:p>=40?['متوسط','tav']:['ضعیف','tlw'];
+const fmt=x=>Math.round(x*10)/10;
+const sum=(arr,key)=>arr.reduce((s,d)=>s+(+d[key]||0),0);
+
+function init(){
+  document.getElementById('hDate').textContent=new Date().toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'});
+  populateExecFilter();
+  updateSortIndicators();
+  loadDataFromSheet();
+  setInterval(()=>loadDataFromSheet(false),AUTO_REFRESH_MS);
+}
+function populateExecFilter(){
+  const sel=document.getElementById('fExec');
+  const cur=sel.value;
+  const names=[...new Set(ALL.map(d=>d.exec).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fa'));
+  sel.innerHTML='<option value="">همه مدیران اجرایی</option>'+names.map(x=>`<option value="${x}">${x}</option>`).join('');
+  if(names.includes(cur)) sel.value=cur;
+}
 
 async function loadDataFromSheet(manual){
-  setSyncStatus(manual ? '🔄 در حال بروزرسانی...' : '🔄 در حال اتصال به گوگل شیت...');
+  setSyncStatus(manual?'🔄 در حال بروزرسانی...':'🔄 در حال اتصال به Google Apps Script...');
+
   try{
-    const bust = (SHEET_CSV_URL.includes('?')?'&':'?') + 'cachebust=' + Date.now();
-    const res = await fetch(SHEET_CSV_URL + bust, {cache:'no-store'});
+    const bust=(WEB_APP_URL.includes('?')?'&':'?')+'t='+Date.now();
+    const res=await fetch(WEB_APP_URL+bust,{cache:'no-store',redirect:'follow'});
     if(!res.ok) throw new Error('HTTP '+res.status);
-    const csvText = await res.text();
-    const parsed = Papa.parse(csvText.trim(), {skipEmptyLines:true});
-    if(parsed.errors && parsed.errors.length && !parsed.data.length) throw new Error('parse error');
-    ALL = mapRowsToData(parsed.data);
+
+    const payload=await res.json();
+    if(!payload || payload.success!==true || !Array.isArray(payload.data)){
+      throw new Error(payload?.message || 'ساختار پاسخ API معتبر نیست');
+    }
+
+    ALL=mapObjectsToData(payload.data);
+    populateExecFilter();
     applyFilters();
+
     const now=new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
-    setSyncStatus('✅ متصل به گوگل شیت (بروزرسانی: '+now+')', true);
-  }catch(err){
-    console.error('خطا در دریافت گوگل شیت:', err);
-    if(ALL===FALLBACK_DATA || !ALL.length){ ALL=[...FALLBACK_DATA]; applyFilters(); }
-    setSyncStatus('⚠️ اتصال به گوگل شیت ناموفق بود — نمایش آخرین داده', false);
+    const sheetName=payload.sheetName ? ` · ${payload.sheetName}` : '';
+    setSyncStatus(`✅ اتصال زنده${sheetName} · ${ALL.length} منطقه · ${now}`,true);
+  }catch(e){
+    console.error('Apps Script API error:',e);
+
+    ALL=[...FALLBACK_DATA];
+    populateExecFilter();
+    applyFilters();
+
+    setSyncStatus('⚠️ اتصال ناموفق — نمایش Snapshot فایل اخیر',false);
   }
 }
 
-// ============ HELPERS ============
-const lvlClr = p => p>=100?'#10b981':p>=70?'#4f8ef7':p>=40?'#f59e0b':'#ef4444';
-const lvlTag = p => p>=100?['عالی','tex']:p>=70?['خوب','tgd']:p>=40?['متوسط','tav']:['ضعیف','tlw'];
 
-// ============ INIT ============
-function init(){
-  document.getElementById('hDate').textContent=
-    new Date().toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'});
-  updateSortIndicators();
-  loadDataFromSheet();
-  setInterval(loadDataFromSheet, AUTO_REFRESH_MS);
+function selectExecutiveManager(name){
+  const sel=document.getElementById('fExec');
+  if(!sel) return;
+  sel.value=name;
+  applyFilters();
+
+  // Bring the user to the filtered national/manager view so the click has an obvious effect.
+  const notice=document.getElementById('activeExecNotice');
+  if(notice) notice.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ============ FILTERS ============
+function clearExecutiveFilter(){
+  const sel=document.getElementById('fExec');
+  if(sel) sel.value='';
+  applyFilters();
+}
+
+function updateExecutiveFilterNotice(){
+  const val=document.getElementById('fExec')?.value || '';
+  const notice=document.getElementById('activeExecNotice');
+  const name=document.getElementById('activeExecName');
+  if(!notice || !name) return;
+  name.textContent=val;
+  notice.classList.toggle('show',!!val);
+}
+
 function applyFilters(){
-  const srch=document.getElementById('srch').value.toLowerCase();
-  const fO=document.getElementById('fOpen').value;
-  const fC=document.getElementById('fCont').value;
-  const fF=document.getElementById('fFran').value;
-  const fS=document.getElementById('fStd').value;
+  const srch=document.getElementById('srch').value.trim().toLowerCase();
+  const fExec=document.getElementById('fExec').value;
+  const fYtd=document.getElementById('fYtd').value;
+  const fNew=document.getElementById('fNew').value;
+  const fFran=document.getElementById('fFran').value;
   const fSort=document.getElementById('fSort').value;
 
+  const passBand=(p,b)=>!b||(b==='ex'&&p>=100)||(b==='gd'&&p>=70&&p<100)||(b==='av'&&p>=40&&p<70)||(b==='lw'&&p<40);
+
   DATA=ALL.filter(d=>{
-    if(srch && !d.name.toLowerCase().includes(srch)) return false;
-    if(fO==='ex'&&d.open_pct<100) return false;
-    if(fO==='gd'&&(d.open_pct<70||d.open_pct>=100)) return false;
-    if(fO==='av'&&(d.open_pct<40||d.open_pct>=70)) return false;
-    if(fO==='lw'&&d.open_pct>=40) return false;
-    if(fC==='ex'&&d.cont_pct<100) return false;
-    if(fC==='gd'&&(d.cont_pct<70||d.cont_pct>=100)) return false;
-    if(fC==='av'&&(d.cont_pct<40||d.cont_pct>=70)) return false;
-    if(fC==='lw'&&d.cont_pct>=40) return false;
-    if(fF==='y'&&d.franchise===0) return false;
-    if(fF==='n'&&d.franchise>0) return false;
-    if(fS==='h'&&d.standard<10) return false;
-    if(fS==='m'&&(d.standard<5||d.standard>=10)) return false;
-    if(fS==='l'&&d.standard>=5) return false;
+    if(srch && !(d.name+' '+d.exec).toLowerCase().includes(srch)) return false;
+    if(fExec && d.exec!==fExec) return false;
+    if(!passBand(d.ytd_pct,fYtd)) return false;
+    if(!passBand(d.new_pct,fNew)) return false;
+    if(fFran==='y'&&d.new_franchise===0) return false;
+    if(fFran==='n'&&d.new_franchise>0) return false;
     return true;
   });
 
-  // مرتب‌سازی - اولویت اول: افتتاح
-  if(fSort==='open_pct_d') DATA.sort((a,b)=>b.open_pct-a.open_pct);
-  else if(fSort==='cont_pct_d') DATA.sort((a,b)=>b.cont_pct-a.cont_pct);
-  else if(fSort==='open_abs_d') DATA.sort((a,b)=>b.open_abs-a.open_abs);
-  else if(fSort==='total_d') DATA.sort((a,b)=>b.total-a.total);
-  else if(fSort==='target_d') DATA.sort((a,b)=>b.target-a.target);
+  if(fSort==='ytd_pct_d') DATA.sort((a,b)=>b.ytd_pct-a.ytd_pct);
+  else if(fSort==='new_pct_d') DATA.sort((a,b)=>b.new_pct-a.new_pct);
+  else if(fSort==='total_d') DATA.sort((a,b)=>b.total_contracts-a.total_contracts);
+  else if(fSort==='opened_d') DATA.sort((a,b)=>b.total_opened-a.total_opened);
+  else if(fSort==='gap_d') DATA.sort((a,b)=>(b.ytd_target-b.total_contracts)-(a.ytd_target-a.total_contracts));
   else DATA.sort((a,b)=>a.name.localeCompare(b.name,'fa'));
 
-  const n=DATA.length;
-  document.getElementById('rCount').textContent=`نمایش ${n} از ${ALL.length}`;
-  document.getElementById('hTotal').textContent=`${n} مدیر`;
+  document.getElementById('rCount').textContent=`نمایش ${DATA.length} از ${ALL.length}`;
+  document.getElementById('hTotal').textContent=`${ALL.length} منطقه`;
+  updateExecutiveFilterNotice();
   renderAll();
 }
 
 function resetAll(){
-  document.getElementById('srch').value='';
-  ['fOpen','fCont','fFran','fStd'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('fSort').value='open_pct_d';
+  ['srch','fExec','fYtd','fNew','fFran'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fSort').value='ytd_pct_d';
   applyFilters();
 }
 
-// ============ RENDER ALL ============
+function national(arr=DATA){
+  const ytdTarget=sum(arr,'ytd_target');
+  const totalContracts=sum(arr,'total_contracts');
+  const newTarget=sum(arr,'new_target');
+  const newContracts=sum(arr,'new_contracts');
+  return {
+    ytdTarget,totalContracts,newTarget,newContracts,
+    ytdPct:ytdTarget?totalContracts/ytdTarget*100:0,
+    newPct:newTarget?newContracts/newTarget*100:0,
+    totalOpened:sum(arr,'total_opened'),
+    pipeline:sum(arr,'opening_pipeline'),
+    newHQ:sum(arr,'new_hq'),
+    newFran:sum(arr,'new_franchise'),
+    totalHQ:sum(arr,'total_hq'),
+    totalFran:sum(arr,'total_franchise'),
+    ytdGap:Math.max(ytdTarget-totalContracts,0),
+    newGap:Math.max(newTarget-newContracts,0)
+  };
+}
+
 function renderAll(){
   renderKPI();
+  renderPerformanceLogic();
   renderGauge();
   renderExecutiveManagers();
   renderTop3();
-  renderDualLB();
+  renderLeaderboards();
   renderComparison();
   renderTable();
   renderBarPctChart();
@@ -1103,321 +1307,221 @@ function renderAll(){
   renderBubbleChart();
 }
 
-// ============ KPI ============
 function renderKPI(){
-  const n=DATA.length;
-  const sumT=DATA.reduce((s,d)=>s+d.target,0);
-  const sumO=DATA.reduce((s,d)=>s+d.open_abs,0);
-  const sumTot=DATA.reduce((s,d)=>s+d.total,0);
-  const sumS=DATA.reduce((s,d)=>s+d.standard,0);
-  const sumF=DATA.reduce((s,d)=>s+d.franchise,0);
-  const avgOP=sumT?Math.round(sumO/sumT*100):0;
-  const avgCP=sumT?Math.round(sumTot/sumT*100):0;
-  const exO=DATA.filter(d=>d.open_pct>=100).length;
-  const exC=DATA.filter(d=>d.cont_pct>=100).length;
-  const openAchieve=avgOP;
-
-  const kpis=[
-    {ico:'🎯',label:'% تحقق افتتاح',val:avgOP+'%',sub:'اولویت اول (مجموع افتتاح ÷ مجموع هدف)',
-     badge:avgOP>=100?'✅ عالی':avgOP>=70?'👍 خوب':'⚠️ بهبود',
-     bCls:avgOP>=100?'bg':avgOP>=70?'bb':'bo',cls:'k1',pr:'priority1',prTag:'kPr1Tag',prL:'اولویت ۱'},
-    {ico:'📋',label:'% تحقق قراردادی',val:avgCP+'%',sub:'اولویت دوم (مجموع قرارداد ÷ مجموع هدف)',
-     badge:avgCP>=100?'✅ عالی':avgCP>=70?'👍 خوب':'⚠️ بهبود',
-     bCls:avgCP>=100?'bg':avgCP>=70?'bb':'bo',cls:'k2',pr:'priority2',prTag:'kPr2Tag',prL:'اولویت ۲'},
-    {ico:'🔓',label:'مجموع افتتاح (عدد)',val:sumO,sub:`از هدف ${sumT} | ${openAchieve}%`,
-     badge:openAchieve>=100?'✅':'⚠️',bCls:openAchieve>=100?'bg':'bo',cls:'k3',pr:'priority1',prTag:'kPr1Tag',prL:'اولویت ۱'},
-    {ico:'📦',label:'مجموع قرارداد',val:sumTot,sub:`ستادی: ${sumS} | فرانچایز: ${sumF}`,badge:'',cls:'k4',pr:'',prTag:'',prL:''},
-    {ico:'🏆',label:'مدیران عالی افتتاح',val:exO,sub:`${n?Math.round(exO/n*100):0}% ≥100%`,
-     badge:exO>0?`${exO} نفر`:'',bCls:'bg',cls:'k5',pr:'priority1',prTag:'kPr1Tag',prL:'اولویت ۱'},
-    {ico:'📝',label:'مدیران عالی قراردادی',val:exC,sub:`${n?Math.round(exC/n*100):0}% ≥100%`,
-     badge:exC>0?`${exC} نفر`:'',bCls:'bb',cls:'k6',pr:'priority2',prTag:'kPr2Tag',prL:'اولویت ۲'},
-    {ico:'🎯',label:'هدف کل مرداد',val:sumT,sub:'مجموع هدف افتتاح',badge:'',cls:'k7',pr:'',prTag:'',prL:''},
-    {ico:'🏢',label:'مجموع ستادی + فرانچایز',val:sumS+sumF,sub:`ستادی: ${sumS} | فرانچایز: ${sumF}`,badge:'',cls:'k8',pr:'',prTag:'',prL:''},
+  const x=national();
+  const franchiseShare=x.newContracts?x.newFran/x.newContracts*100:0;
+  const cards=[
+    {c:'k1 priority2',ico:'🚀',badge:'از شهریور',b:'bb',label:'تحقق هدف قراردادی از شهریور',val:fmt(x.newPct)+'%',sub:`${x.newContracts} قرارداد از هدف ${x.newTarget}`},
+    {c:'k2 priority2',ico:'📑',badge:'Actual',b:'bb',label:'کل قرارداد از شهریور',val:x.newContracts,sub:`${x.newHQ} ستادی + ${x.newFran} فرانچایز`},
+    {c:'k3',ico:'🎯',badge:'Target',b:'bo',label:'هدف جدید شهریور تا مهر',val:x.newTarget,sub:`Gap دوره جدید: ${x.newGap}`},
+    {c:'k4 priority1',ico:'📅',badge:'تا مهر',b:'bg',label:'تحقق کل هدف قراردادی تا مهر',val:fmt(x.ytdPct)+'%',sub:`${x.totalContracts} قرارداد از هدف ${x.ytdTarget}`},
+    {c:'k5 priority1',ico:'📄',badge:'Actual',b:'bg',label:'مجموع کل قرارداد ۱۴۰۵',val:x.totalContracts,sub:`${x.totalHQ} ستادی + ${x.totalFran} فرانچایز`},
+    {c:'k6',ico:'🎯',badge:'Target',b:'bo',label:'هدف تجمعی تا مهر',val:x.ytdTarget,sub:`Gap تجمعی: ${x.ytdGap}`},
+    {c:'k7',ico:'🏪',badge:'افتتاح',b:'bp',label:'مجموع افتتاح از ابتدای سال',val:x.totalOpened,sub:'فروشگاه افتتاح‌شده در ۱۴۰۵'},
+    {c:'k8',ico:'🧭',badge:'Pipeline',b:'bb',label:'درحال افتتاح',val:x.pipeline,sub:'فروشگاه با تاریخ افتتاح اعلام‌شده'}
   ];
-
-  document.getElementById('kpiGrid').innerHTML=kpis.map(k=>`
-    <div class="kpi ${k.cls} ${k.pr}">
-      <div class="kTop">
-        <div class="kIco">${k.ico}</div>
-        ${k.badge?`<span class="kBadge ${k.bCls}">${k.badge}</span>`:''}
-      </div>
-      ${k.prL?`<span class="kPrTag ${k.prTag}">${k.prL}</span>`:''}
-      <div class="kLabel">${k.label}</div>
-      <div class="kVal">${k.val}</div>
-      <div class="kSub">${k.sub}</div>
+  document.getElementById('kpiGrid').innerHTML=cards.map(k=>`
+    <div class="kpi ${k.c}">
+      <div class="kTop"><div class="kIco">${k.ico}</div><span class="kBadge ${k.b}">${k.badge}</span></div>
+      <div class="kLabel">${k.label}</div><div class="kVal">${k.val}</div><div class="kSub">${k.sub}</div>
     </div>`).join('');
 }
 
-// ============ GAUGE ============
+
+function renderPerformanceLogic(){
+  const x=national();
+  const newPct=x.newTarget?x.newContracts/x.newTarget*100:0;
+  const ytdPct=x.ytdTarget?x.totalContracts/x.ytdTarget*100:0;
+
+  const setTxt=(id,val)=>{const el=document.getElementById(id); if(el) el.textContent=val;};
+  const setW=(id,val)=>{const el=document.getElementById(id); if(el) el.style.width=Math.min(Math.max(val,0),100)+'%';};
+
+  setTxt('logicNewTarget',x.newTarget);
+  setTxt('logicNewActual',x.newContracts);
+  setTxt('logicNewPct',fmt(newPct)+'%');
+  setW('logicNewActualBar',newPct);
+
+  setTxt('logicYtdTarget',x.ytdTarget);
+  setTxt('logicYtdActual',x.totalContracts);
+  setTxt('logicYtdPct',fmt(ytdPct)+'%');
+  setW('logicYtdActualBar',ytdPct);
+}
+
 function renderGauge(){
-  const n=DATA.length;
-  if(!n){document.getElementById('gaugeRow').innerHTML='';return;}
-  const exO=DATA.filter(d=>d.open_pct>=100).length;
-  const exC=DATA.filter(d=>d.cont_pct>=100).length;
-  const sumO=DATA.reduce((s,d)=>s+d.open_abs,0);
-  const sumT=DATA.reduce((s,d)=>s+d.target,0);
-  const sumTot=DATA.reduce((s,d)=>s+d.total,0);
-  const avgOP=sumT?Math.round(sumO/sumT*100):0;
-  const avgCP=sumT?Math.round(sumTot/sumT*100):0;
-  const maxO=[...DATA].sort((a,b)=>b.open_pct-a.open_pct)[0];
-  const minO=[...DATA].sort((a,b)=>a.open_pct-b.open_pct)[0];
-
+  const x=national();
+  const zero=DATA.filter(d=>d.new_contracts===0).length;
   const items=[
-    {val:avgOP+'%',label:'% تحقق افتتاح (کلی)',sub:avgOP>=100?'✅ بالای هدف':'⚠️ زیر هدف',color:lvlClr(avgOP),cls:'gp1'},
-    {val:avgCP+'%',label:'% تحقق قراردادی (کلی)',sub:avgCP>=100?'✅ بالای هدف':'⚠️ زیر هدف',color:lvlClr(avgCP),cls:'gp2'},
-    {val:exO+' نفر',label:'افتتاح ≥100%',sub:`${Math.round(exO/n*100)}% از مدیران`,color:'#10b981',cls:'gp1'},
-    {val:exC+' نفر',label:'قراردادی ≥100%',sub:`${Math.round(exC/n*100)}% از مدیران`,color:'#4f8ef7',cls:'gp2'},
-    {val:sumO+'/'+sumT,label:'افتتاح / هدف کل',sub:`${sumT?Math.round(sumO/sumT*100):0}% تحقق`,color:lvlClr(sumT?sumO/sumT*100:0),cls:'gp1'},
-    {val:maxO?.open_pct+'%',label:'بیشترین افتتاح',sub:maxO?.name||'',color:'#f59e0b',cls:''},
-    {val:minO?.open_pct+'%',label:'کمترین افتتاح',sub:minO?.name||'',color:'#ef4444',cls:''},
+    {v:fmt(x.ytdPct)+'%',l:'تحقق کل هدف تا مهر',s:`${x.totalContracts}/${x.ytdTarget}`,c:'#10b981',cl:'gp1'},
+    {v:fmt(x.newPct)+'%',l:'تحقق هدف قراردادی از شهریور',s:`${x.newContracts}/${x.newTarget}`,c:'#4f8ef7',cl:'gp2'},
+    {v:x.totalOpened,l:'افتتاح‌شده از ابتدای سال',s:'فروشگاه',c:'#f59e0b',cl:''},
+    {v:x.pipeline,l:'درحال افتتاح',s:'فروشگاه',c:'#06b6d4',cl:''},
+    {v:zero,l:'مناطق بدون کل قرارداد از شهریور',s:`از ${DATA.length} منطقه`,c:'#ef4444',cl:''}
   ];
-
-  document.getElementById('gaugeRow').innerHTML=items.map(it=>`
-    <div class="gaugeCard ${it.cls}">
-      <div class="gaugeVal" style="color:${it.color};">${it.val}</div>
-      <div class="gaugeLabel">${it.label}</div>
-      <div class="gaugeSub" style="color:${it.color};">${it.sub}</div>
-    </div>`).join('');
+  document.getElementById('gaugeRow').innerHTML=items.map(i=>`
+    <div class="gaugeCard ${i.cl}"><div class="gaugeVal" style="color:${i.c};">${i.v}</div><div class="gaugeLabel">${i.l}</div><div class="gaugeSub">${i.s}</div></div>`).join('');
 }
 
-
-// ============ EXECUTIVE MANAGERS ============
-function escHtml(v){
-  return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
-}
-
-function execStatus(p){
-  return p>=100?['تحقق کامل','ex']:p>=70?['در مسیر مناسب','gd']:p>=40?['نیازمند پیگیری','av']:['وضعیت بحرانی','lw'];
+function aggregateExecutives(){
+  const m=new Map();
+  DATA.forEach(d=>{
+    if(!m.has(d.exec)) m.set(d.exec,[]);
+    m.get(d.exec).push(d);
+  });
+  return [...m.entries()].map(([name,items])=>{
+    const ytd_target=sum(items,'ytd_target'), total_contracts=sum(items,'total_contracts');
+    const new_target=sum(items,'new_target'), new_contracts=sum(items,'new_contracts');
+    return {
+      name,items,
+      ytd_target,total_contracts,ytd_pct:ytd_target?total_contracts/ytd_target*100:0,
+      new_target,new_contracts,new_pct:new_target?new_contracts/new_target*100:0,
+      total_opened:sum(items,'total_opened'),
+      pipeline:sum(items,'opening_pipeline'),
+      total_hq:sum(items,'total_hq'),total_franchise:sum(items,'total_franchise'),
+      gap:Math.max(ytd_target-total_contracts,0),
+      best:[...items].sort((a,b)=>b.ytd_pct-a.ytd_pct)[0],
+      attention:[...items].sort((a,b)=>a.ytd_pct-b.ytd_pct)[0]
+    };
+  }).sort((a,b)=>b.ytd_pct-a.ytd_pct || b.new_pct-a.new_pct);
 }
 
 function renderExecutiveManagers(){
-  const summaryEl=document.getElementById('execSummary');
-  const gridEl=document.getElementById('execGrid');
-  if(!summaryEl||!gridEl) return;
+  const ex=aggregateExecutives();
+  const summary=document.getElementById('execSummary');
+  const grid=document.getElementById('execGrid');
+  if(!ex.length){summary.innerHTML='';grid.innerHTML='<div class="execEmpty">داده‌ای برای نمایش نیست</div>';return;}
+  const lead=ex[0], x=national();
+  summary.innerHTML=[
+    {l:'تعداد مدیران اجرایی',v:ex.length+' نفر',h:DATA.length+' منطقه در نمای فعلی'},
+    {l:'بهترین تحقق تا مهر',v:lead.name,h:fmt(lead.ytd_pct)+'% تحقق'},
+    {l:'عملکرد کل نمای فعلی',v:fmt(x.ytdPct)+'%',h:x.totalContracts+' قرارداد از '+x.ytdTarget+' هدف'}
+  ].map(a=>`<div class="execSummaryItem"><div class="execSummaryLabel">${a.l}</div><div class="execSummaryValue">${a.v}</div><div class="execSummaryHint">${a.h}</div></div>`).join('');
 
-  const valid=DATA.filter(d=>d.exec && d.exec!=='تعیین نشده');
-  if(!valid.length){
-    summaryEl.innerHTML='';
-    gridEl.innerHTML='<div class="execEmpty">ستون «مدیر اجرایی» در داده‌های گوگل‌شیت شناسایی نشد. عنوان ستون را دقیقاً «مدیر اجرایی» قرار دهید.</div>';
-    return;
-  }
-
-  const grouped=new Map();
-  valid.forEach(d=>{
-    if(!grouped.has(d.exec)) grouped.set(d.exec,[]);
-    grouped.get(d.exec).push(d);
-  });
-
-  const executives=[...grouped.entries()].map(([name,items])=>{
-    const target=items.reduce((s,d)=>s+d.target,0);
-    const opened=items.reduce((s,d)=>s+d.open_abs,0);
-    const contracts=items.reduce((s,d)=>s+d.total,0);
-    const standard=items.reduce((s,d)=>s+d.standard,0);
-    const franchise=items.reduce((s,d)=>s+d.franchise,0);
-    const openPct=target?Math.round(opened/target*100):0;
-    const contPct=target?Math.round(contracts/target*100):0;
-    const sortedOpen=[...items].sort((a,b)=>b.open_pct-a.open_pct);
-    return {
-      name,items,target,opened,contracts,standard,franchise,openPct,contPct,
-      gap:Math.max(target-opened,0),
-      best:sortedOpen[0],attention:sortedOpen[sortedOpen.length-1]
-    };
-  }).sort((a,b)=>b.openPct-a.openPct || b.contPct-a.contPct || b.opened-a.opened);
-
-  const totalTarget=executives.reduce((s,e)=>s+e.target,0);
-  const totalOpen=executives.reduce((s,e)=>s+e.opened,0);
-  const totalContract=executives.reduce((s,e)=>s+e.contracts,0);
-  const overallOpen=totalTarget?Math.round(totalOpen/totalTarget*100):0;
-  const overallCont=totalTarget?Math.round(totalContract/totalTarget*100):0;
-  summaryEl.innerHTML=[
-    {label:'تعداد مدیران اجرایی',value:executives.length+' نفر',hint:valid.length+' مدیر منطقه تحت پوشش'},
-    {label:'تحقق افتتاح تجمیعی',value:overallOpen+'%',hint:totalOpen+' افتتاح از هدف '+totalTarget},
-    {label:'تحقق قراردادی تجمیعی',value:overallCont+'%',hint:totalContract+' قرارداد ثبت‌شده'}
-  ].map(x=>`<div class="execSummaryItem"><div class="execSummaryLabel">${x.label}</div><div class="execSummaryValue">${x.value}</div><div class="execSummaryHint">${x.hint}</div></div>`).join('');
-
-  gridEl.innerHTML=executives.map((e,i)=>{
-    const status=execStatus(e.openPct);
-    const members=e.items.map(d=>d.name).join('، ');
-    const openWidth=Math.min(Math.max(e.openPct,0),100);
-    const contWidth=Math.min(Math.max(e.contPct,0),100);
-    const attentionText=e.attention?`${e.attention.name} · ${e.attention.open_pct}%`:'—';
-    const bestText=e.best?`${e.best.name} · ${e.best.open_pct}%`:'—';
-    return `
-      <article class="execCard ${i===0?'isLeader':''}">
-        <div class="execCardTop">
-          <div class="execRank">${i===0?'👑':i+1}</div>
-          <div class="execNameWrap">
-            <div class="execName">${escHtml(e.name)}</div>
-            <div class="execCoverage">${e.items.length} مدیر منطقه زیرمجموعه</div>
-          </div>
-          <span class="execStatus ${status[1]}">${status[0]}</span>
-        </div>
-
-        <div class="execMetrics">
-          <div class="execMetric"><div class="execMetricVal green">${e.opened}/${e.target}</div><div class="execMetricLabel">افتتاح / هدف</div></div>
-          <div class="execMetric"><div class="execMetricVal blue">${e.contracts}</div><div class="execMetricLabel">مجموع قرارداد</div></div>
-          <div class="execMetric"><div class="execMetricVal gold">${e.gap}</div><div class="execMetricLabel">فاصله تا هدف افتتاح</div></div>
-        </div>
-
-        <div class="execProgress">
-          <div class="execProgressTop"><span class="execProgressLabel">🥇 تحقق افتتاح</span><span class="execProgressValue" style="color:${lvlClr(e.openPct)}">${e.openPct}%</span></div>
-          <div class="execTrack"><div class="execFill open" style="width:${openWidth}%"></div></div>
-        </div>
-        <div class="execProgress">
-          <div class="execProgressTop"><span class="execProgressLabel">🥈 تحقق قراردادی</span><span class="execProgressValue" style="color:${lvlClr(e.contPct)}">${e.contPct}%</span></div>
-          <div class="execTrack"><div class="execFill cont" style="width:${contWidth}%"></div></div>
-        </div>
-
-        <div class="execInsights">
-          <div class="execInsight"><div class="execInsightLabel">بهترین عملکرد افتتاح</div><div class="execInsightValue">${escHtml(bestText)}</div></div>
-          <div class="execInsight"><div class="execInsightLabel">نیازمند توجه فوری</div><div class="execInsightValue attention">${escHtml(attentionText)}</div></div>
-        </div>
-
-        <details class="execMembers">
-          <summary>مدیران مناطق تحت پوشش</summary>
-          <div class="execMembersList">${escHtml(members)}</div>
-        </details>
-      </article>`;
+  grid.innerHTML=ex.map((e,i)=>{
+    const yClr=lvlClr(e.ytd_pct), nClr=lvlClr(e.new_pct);
+    const st=lvlTag(e.ytd_pct)[0], sc=e.ytd_pct>=100?'ex':e.ytd_pct>=70?'gd':e.ytd_pct>=40?'av':'lw';
+    const best=e.best?`${e.best.name} · ${fmt(e.best.ytd_pct)}%`:'—';
+    const att=e.attention?`${e.attention.name} · ${fmt(e.attention.ytd_pct)}%`:'—';
+    const selectedExec=document.getElementById('fExec')?.value || '';
+    const isSelected=selectedExec===e.name;
+    const safeName=e.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return `<div class="execCard ${i===0?'isLeader':''} ${isSelected?'isSelected':''}" role="button" tabindex="0"
+      onclick="selectExecutiveManager('${safeName}')"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectExecutiveManager('${safeName}')}">
+      <div class="execCardTop">
+        <div class="execRank">${i+1}</div>
+        <div class="execNameWrap"><div class="execName">${e.name}</div><div class="execCoverage">${e.items.length} منطقه تحت پوشش</div></div>
+        <span class="execStatus ${sc}">${st}</span>
+      </div>
+      <div class="execMetrics">
+        <div class="execMetric"><div class="execMetricVal green">${fmt(e.ytd_pct)}%</div><div class="execMetricLabel">تحقق تا مهر</div></div>
+        <div class="execMetric"><div class="execMetricVal blue">${fmt(e.new_pct)}%</div><div class="execMetricLabel">تحقق قراردادی از شهریور</div></div>
+        <div class="execMetric"><div class="execMetricVal gold">${e.total_opened}</div><div class="execMetricLabel">کل افتتاح</div></div>
+      </div>
+      <div class="execProgress">
+        <div class="execProgressTop"><span class="execProgressLabel">کل قرارداد / هدف تا مهر</span><span class="execProgressValue" style="color:${yClr};">${e.total_contracts}/${e.ytd_target}</span></div>
+        <div class="execTrack"><div class="execFill open" style="width:${Math.min(e.ytd_pct,100)}%;"></div></div>
+      </div>
+      <div class="execProgress">
+        <div class="execProgressTop"><span class="execProgressLabel">کل قرارداد از شهریور / هدف جدید</span><span class="execProgressValue" style="color:${nClr};">${e.new_contracts}/${e.new_target}</span></div>
+        <div class="execTrack"><div class="execFill cont" style="width:${Math.min(e.new_pct,100)}%;"></div></div>
+      </div>
+      <div class="execInsights">
+        <div class="execInsight"><div class="execInsightLabel">بهترین منطقه</div><div class="execInsightValue">${best}</div></div>
+        <div class="execInsight"><div class="execInsightLabel">نیازمند توجه</div><div class="execInsightValue attention">${att}</div></div>
+      </div>
+      <details class="execMembers" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()"><summary>مشاهده مناطق</summary><div class="execMembersList">${e.items.map(d=>d.name).join(' • ')}</div></details>
+      <div class="execClickHint"><span>برای مشاهده عملکرد مناطق این مدیر روی کارت کلیک کنید</span><strong>${isSelected?'✓ فیلتر فعال':'مشاهده جزئیات ←'}</strong></div>
+    </div>`;
   }).join('');
 }
 
-// ============ TOP 3 ============
-function mkTop3(containerId, sortKey){
-  const sorted=[...DATA].sort((a,b)=>b[sortKey]-a[sortKey]).slice(0,3);
+function top3Html(key,sub){
+  const s=[...DATA].sort((a,b)=>b[key]-a[key]).slice(0,3);
   const medals=['🥇','🥈','🥉'];
-  const frameColors=['rgba(245,158,11,0.4)','rgba(148,163,184,0.3)','rgba(205,124,58,0.3)'];
-  document.getElementById(containerId).innerHTML=sorted.map((d,i)=>`
-    <div class="t3Card" style="border-color:${frameColors[i]};">
-      <div class="t3Medal">${medals[i]}</div>
-      <div class="t3Name">${d.name}</div>
-      <div class="t3Pct" style="color:${lvlClr(d[sortKey])};">${d[sortKey]}%</div>
-      <div class="t3Sub">
-        افتتاح: <b style="color:#10b981;">${d.open_pct}%</b><br>
-        قرارداد: <b style="color:#4f8ef7;">${d.cont_pct}%</b><br>
-        ${d.open_abs} افتتاح | ${d.total} قرارداد
-      </div>
-    </div>`).join('');
+  return s.map((d,i)=>`<div class="t3Card ${i===0?'gold':''}">
+    <div class="t3Medal">${medals[i]}</div><div class="t3Name">${d.name}</div>
+    <div class="t3Pct" style="color:${lvlClr(d[key])};">${fmt(d[key])}%</div>
+    <div class="t3Sub">${sub(d)}</div></div>`).join('');
 }
 function renderTop3(){
-  mkTop3('top3Open','open_pct');
-  mkTop3('top3Cont','cont_pct');
+  document.getElementById('top3Ytd').innerHTML=top3Html('ytd_pct',d=>`${d.total_contracts} قرارداد / هدف ${d.ytd_target}`);
+  document.getElementById('top3New').innerHTML=top3Html('new_pct',d=>`${d.new_contracts} کل قرارداد از شهریور / هدف ${d.new_target}`);
 }
 
-// ============ DUAL LEADERBOARD ============
-function mkLB(containerId, sortKey){
-  const sorted=[...DATA].sort((a,b)=>b[sortKey]-a[sortKey]);
-  const maxP=sorted[0]?.[sortKey]||1;
-  document.getElementById(containerId).innerHTML=sorted.map((d,i)=>{
-    const clr=lvlClr(d[sortKey]);
-    const w=Math.round(d[sortKey]/maxP*100);
-    const rCls=i===0?'r1':i===1?'r2':i===2?'r3':'ro';
-    return `
-      <div class="lbItem">
-        <div class="lbRank ${rCls}">${i+1}</div>
-        <div class="lbName">${d.name}</div>
-        <div class="lbBarBg"><div class="lbBarFill" style="width:${w}%;background:${clr};"></div></div>
-        <div class="lbPct" style="color:${clr};">${d[sortKey]}%</div>
-        <div class="lbExtra" style="color:#8892a4;">${d.open_abs}/${d.target}</div>
-      </div>`;
-  }).join('');
-}
-function renderDualLB(){
-  mkLB('lbOpen','open_pct');
-  mkLB('lbCont','cont_pct');
-}
-
-// ============ COMPARISON ============
-function renderComparison(){
-  const n=DATA.length;
-  const sumT=DATA.reduce((s,d)=>s+d.target,0);
-  const sumO=DATA.reduce((s,d)=>s+d.open_abs,0);
-  const sumTot=DATA.reduce((s,d)=>s+d.total,0);
-  const sumS=DATA.reduce((s,d)=>s+d.standard,0);
-  const sumF=DATA.reduce((s,d)=>s+d.franchise,0);
-  const avgOP=sumT?Math.round(sumO/sumT*100):0;
-  const avgCP=sumT?Math.round(sumTot/sumT*100):0;
-  const maxV=Math.max(sumT,sumO,sumTot,sumS,300);
-
-  const items=[
-    {label:'🥇 % تحقق افتتاح (اول)',val:avgOP,display:avgOP+'%',color:lvlClr(avgOP),max:300},
-    {label:'🥈 % تحقق قراردادی (دوم)',val:avgCP,display:avgCP+'%',color:lvlClr(avgCP),max:300},
-    {label:'هدف کل',val:sumT,display:sumT,color:'#f59e0b',max:maxV},
-    {label:'مجموع افتتاح',val:sumO,display:sumO,color:'#10b981',max:maxV},
-    {label:'مجموع قرارداد',val:sumTot,display:sumTot,color:'#4f8ef7',max:maxV},
-    {label:'ستادی',val:sumS,display:sumS,color:'#7c3aed',max:maxV},
-    {label:'فرانچایز',val:sumF,display:sumF,color:'#ef4444',max:maxV},
-  ];
-  document.getElementById('cmpWrap').innerHTML=items.map(it=>`
-    <div class="cmpItem">
-      <div class="cmpLabel">${it.label}</div>
-      <div class="cmpBg"><div class="cmpFill" style="width:${Math.round(it.val/it.max*100)}%;background:${it.color};"></div></div>
-      <div class="cmpVal" style="color:${it.color};">${it.display}</div>
+function leaderboard(id,key,extra){
+  const s=[...DATA].sort((a,b)=>b[key]-a[key]);
+  const max=Math.max(...s.map(d=>d[key]),100);
+  document.getElementById(id).innerHTML=s.map((d,i)=>`
+    <div class="lbItem">
+      <div class="lbRank ${i===0?'r1':i===1?'r2':i===2?'r3':'ro'}">${i+1}</div>
+      <div class="lbName">${d.name}</div>
+      <div class="lbBarBg"><div class="lbBarFill" style="width:${Math.min(d[key]/max*100,100)}%;background:${lvlClr(d[key])};"></div></div>
+      <div class="lbPct" style="color:${lvlClr(d[key])};">${fmt(d[key])}%</div>
+      <div class="lbExtra">${extra(d)}</div>
     </div>`).join('');
 }
+function renderLeaderboards(){
+  leaderboard('lbYtd','ytd_pct',d=>`${d.total_contracts}/${d.ytd_target}`);
+  leaderboard('lbNew','new_pct',d=>`${d.new_contracts}/${d.new_target}`);
+}
 
-// ============ TABLE ============
+function renderComparison(){
+  const x=national();
+  const maxV=Math.max(x.ytdTarget,x.totalContracts,x.totalOpened,x.newTarget,x.newContracts,1);
+  const items=[
+    {l:'🥇 تحقق هدف تا مهر',v:x.ytdPct,d:fmt(x.ytdPct)+'%',c:lvlClr(x.ytdPct),m:100},
+    {l:'🥈 تحقق هدف قراردادی از شهریور',v:x.newPct,d:fmt(x.newPct)+'%',c:lvlClr(x.newPct),m:100},
+    {l:'هدف تا مهر',v:x.ytdTarget,d:x.ytdTarget,c:'#f59e0b',m:maxV},
+    {l:'مجموع کل قرارداد',v:x.totalContracts,d:x.totalContracts,c:'#4f8ef7',m:maxV},
+    {l:'مجموع افتتاح',v:x.totalOpened,d:x.totalOpened,c:'#10b981',m:maxV},
+    {l:'هدف جدید شهریور تا مهر',v:x.newTarget,d:x.newTarget,c:'#ec4899',m:maxV},
+    {l:'کل قرارداد از شهریور از شهریور',v:x.newContracts,d:x.newContracts,c:'#06b6d4',m:maxV}
+  ];
+  document.getElementById('cmpWrap').innerHTML=items.map(i=>`
+    <div class="cmpItem"><div class="cmpLabel">${i.l}</div>
+    <div class="cmpBg"><div class="cmpFill" style="width:${Math.min(i.v/i.m*100,100)}%;background:${i.c};"></div></div>
+    <div class="cmpVal" style="color:${i.c};">${i.d}</div></div>`).join('');
+}
+
 function renderTable(){
   const sorted=[...DATA].sort((a,b)=>{
-    const va=a[tSortKey], vb=b[tSortKey];
+    const va=a[tSortKey],vb=b[tSortKey];
     if(typeof va==='string') return va.localeCompare(vb,'fa')*tSortDir;
     return (va-vb)*tSortDir;
   });
-  const tots={target:0,open_abs:0,total:0,standard:0,franchise:0};
-  DATA.forEach(d=>{tots.target+=d.target;tots.open_abs+=d.open_abs;tots.total+=d.total;tots.standard+=d.standard;tots.franchise+=d.franchise;});
-  const avgOP=tots.target?Math.round(tots.open_abs/tots.target*100):0;
-  const avgCP=tots.target?Math.round(tots.total/tots.target*100):0;
-
-  const rows=sorted.map((d,i)=>{
-    const rCls=i===0?'r1':i===1?'r2':i===2?'r3':'ro';
-    const oClr=lvlClr(d.open_pct);
-    const cClr=lvlClr(d.cont_pct);
-    const oLvl=lvlTag(d.open_pct);
-    const cLvl=lvlTag(d.cont_pct);
-    const oW=Math.min(d.open_pct,300)/3;
-    const cW=Math.min(d.cont_pct,300)/3;
-    return `
-      <tr>
-        <td><div class="rnk ${rCls}">${i+1}</div></td>
-        <td><span style="font-weight:700;color:#e0e0e0;">${d.name}</span></td>
-        <td>
-          <div class="barWrap">
-            <div class="barBg"><div class="barFill" style="width:${oW}%;background:${oClr};"></div></div>
-            <span class="barVal" style="color:${oClr};">${d.open_pct}%</span>
-          </div>
-        </td>
-        <td>
-          <div class="barWrap">
-            <div class="barBg"><div class="barFill" style="width:${cW}%;background:${cClr};"></div></div>
-            <span class="barVal" style="color:${cClr};">${d.cont_pct}%</span>
-          </div>
-        </td>
-        <td><span class="num no">${d.target}</span></td>
-        <td><span class="num ng">${d.open_abs}</span></td>
-        <td><span class="num nb">${d.total}</span></td>
-        <td><span class="num np">${d.standard}</span></td>
-        <td><span class="num nr">${d.franchise}</span></td>
-        <td><span class="tag ${oLvl[1]}">${oLvl[0]}</span></td>
-        <td><span class="tag ${cLvl[1]}">${cLvl[0]}</span></td>
-      </tr>`;
-  }).join('');
-
-  const totalRow=`
-    <tr class="totalRow">
-      <td colspan="2">📊 مجموع / میانگین</td>
-      <td><span style="color:${lvlClr(avgOP)};font-weight:900;">${avgOP}%</span></td>
-      <td><span style="color:${lvlClr(avgCP)};font-weight:900;">${avgCP}%</span></td>
-      <td><span class="num no">${tots.target}</span></td>
-      <td><span class="num ng">${tots.open_abs}</span></td>
-      <td><span class="num nb">${tots.total}</span></td>
-      <td><span class="num np">${tots.standard}</span></td>
-      <td><span class="num nr">${tots.franchise}</span></td>
-      <td>—</td><td>—</td>
-    </tr>`;
-
-  document.getElementById('tBody').innerHTML=rows+totalRow;
+  const rows=sorted.map((d,i)=>`
+    <tr>
+      <td><div class="rnk ${i===0?'r1':i===1?'r2':i===2?'r3':'ro'}">${i+1}</div></td>
+      <td><b>${d.name}</b></td>
+      <td>${d.exec}</td>
+      <td>${pctCell(d.ytd_pct)}</td>
+      <td>${pctCell(d.new_pct)}</td>
+      <td><span class="num no">${d.ytd_target}</span></td>
+      <td><span class="num nb">${d.total_contracts}</span></td>
+      <td><span class="num ng">${d.total_opened}</span></td>
+      <td><span class="num no">${d.new_target}</span></td>
+      <td><span class="num nc">${d.new_contracts}</span></td>
+      <td><span class="num np">${d.new_hq}</span></td>
+      <td><span class="num nr">${d.new_franchise}</span></td>
+      <td><span class="num ng">${d.opening_pipeline}</span></td>
+      <td>${d.total_hq}</td>
+      <td>${d.total_franchise}</td>
+    </tr>`).join('');
+  const x=national();
+  const tr=`<tr class="totalRow">
+    <td colspan="3">📊 مجموع / عملکرد کل</td>
+    <td><b style="color:${lvlClr(x.ytdPct)}">${fmt(x.ytdPct)}%</b></td>
+    <td><b style="color:${lvlClr(x.newPct)}">${fmt(x.newPct)}%</b></td>
+    <td>${x.ytdTarget}</td><td>${x.totalContracts}</td><td>${x.totalOpened}</td>
+    <td>${x.newTarget}</td><td>${x.newContracts}</td><td>${x.newHQ}</td><td>${x.newFran}</td>
+    <td>${x.pipeline}</td><td>${x.totalHQ}</td><td>${x.totalFran}</td></tr>`;
+  document.getElementById('tBody').innerHTML=rows+tr;
+}
+function pctCell(v){
+  const c=lvlClr(v),w=Math.min(v,100);
+  return `<div class="barWrap"><div class="barBg"><div class="barFill" style="width:${w}%;background:${c};"></div></div><span class="barVal" style="color:${c};">${fmt(v)}%</span></div>`;
 }
 
-// ============ CHART HELPERS ============
 function dc(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
 const gBase={
   responsive:true,maintainAspectRatio:false,
@@ -1428,153 +1532,72 @@ const gBase={
   }
 };
 
-// ============ BAR % ============
 function renderBarPctChart(){
   dc('barPct');
-  const sorted=[...DATA].sort((a,b)=>b.open_pct-a.open_pct);
-  charts['barPct']=new Chart(document.getElementById('barPctChart'),{
+  const s=[...DATA].sort((a,b)=>b.ytd_pct-a.ytd_pct);
+  charts.barPct=new Chart(document.getElementById('barPctChart'),{
     type:'bar',
-    data:{
-      labels:sorted.map(d=>d.name.split(' ')[0]),
-      datasets:[
-        {
-          label:'🥇 % تحقق افتتاح (اولویت ۱)',
-          data:sorted.map(d=>d.open_pct),
-          backgroundColor:sorted.map(d=>lvlClr(d.open_pct)+'cc'),
-          borderColor:sorted.map(d=>lvlClr(d.open_pct)),
-          borderWidth:1.5,borderRadius:5,
-        },
-        {
-          label:'🥈 % تحقق قراردادی (اولویت ۲)',
-          data:sorted.map(d=>d.cont_pct),
-          backgroundColor:'rgba(79,142,247,0.55)',
-          borderColor:'#4f8ef7',borderWidth:1,borderRadius:5,
-        },
-      ]
-    },
-    options:{
-      ...gBase,
-      scales:{
-        x:{ticks:{color:'#8892a4',font:{size:10},maxRotation:45},grid:{color:'#1a2030'}},
-        y:{ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}}
-      }
-    }
+    data:{labels:s.map(d=>d.name.split(' ')[0]),datasets:[
+      {label:'🥇 تحقق هدف تا مهر',data:s.map(d=>d.ytd_pct),backgroundColor:s.map(d=>lvlClr(d.ytd_pct)+'cc'),borderColor:s.map(d=>lvlClr(d.ytd_pct)),borderWidth:1.5,borderRadius:5},
+      {label:'🥈 تحقق قراردادی از شهریور',data:s.map(d=>d.new_pct),backgroundColor:'rgba(79,142,247,.55)',borderColor:'#4f8ef7',borderWidth:1,borderRadius:5}
+    ]},
+    options:{...gBase,scales:{x:gBase.scales.x,y:{ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}}}}
   });
 }
-
-// ============ DONUT ============
 function renderDonutChart(){
   dc('donut');
-  const ex=DATA.filter(d=>d.open_pct>=100).length;
-  const gd=DATA.filter(d=>d.open_pct>=70&&d.open_pct<100).length;
-  const av=DATA.filter(d=>d.open_pct>=40&&d.open_pct<70).length;
-  const lw=DATA.filter(d=>d.open_pct<40).length;
-  charts['donut']=new Chart(document.getElementById('donutChart'),{
+  const ex=DATA.filter(d=>d.ytd_pct>=100).length,gd=DATA.filter(d=>d.ytd_pct>=70&&d.ytd_pct<100).length,av=DATA.filter(d=>d.ytd_pct>=40&&d.ytd_pct<70).length,lw=DATA.filter(d=>d.ytd_pct<40).length;
+  charts.donut=new Chart(document.getElementById('donutChart'),{
     type:'doughnut',
-    data:{
-      labels:['عالی ≥100%','خوب 70-99%','متوسط 40-69%','ضعیف <40%'],
-      datasets:[{
-        data:[ex,gd,av,lw],
-        backgroundColor:['#10b981','#4f8ef7','#f59e0b','#ef4444'],
-        borderColor:'#141824',borderWidth:3,hoverOffset:10,
-      }]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,cutout:'65%',
-      plugins:{
-        legend:{position:'bottom',labels:{color:'#8892a4',padding:10,font:{size:11}}},
-        tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} نفر`}}
-      }
-    }
+    data:{labels:['عالی ≥100%','خوب 70-99%','متوسط 40-69%','ضعیف <40%'],datasets:[{data:[ex,gd,av,lw],backgroundColor:['#10b981','#4f8ef7','#f59e0b','#ef4444'],borderColor:'#141824',borderWidth:3,hoverOffset:10}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{color:'#8892a4',padding:10,font:{size:11}}},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} منطقه`}}}}
   });
 }
-
-// ============ BAR ABS ============
 function renderBarAbsChart(){
   dc('barAbs');
-  const sorted=[...DATA].sort((a,b)=>b.open_pct-a.open_pct);
-  charts['barAbs']=new Chart(document.getElementById('barAbsChart'),{
-    type:'bar',
-    data:{
-      labels:sorted.map(d=>d.name.split(' ')[0]),
-      datasets:[
-        {label:'هدف',     data:sorted.map(d=>d.target),   backgroundColor:'rgba(245,158,11,0.55)',borderRadius:4},
-        {label:'ستادی',   data:sorted.map(d=>d.standard), backgroundColor:'rgba(79,142,247,0.85)',borderRadius:4},
-        {label:'فرانچایز',data:sorted.map(d=>d.franchise),backgroundColor:'rgba(124,58,237,0.85)',borderRadius:4},
-        {label:'افتتاح',  data:sorted.map(d=>d.open_abs), backgroundColor:'rgba(16,185,129,0.9)', borderRadius:4},
-      ]
-    },
-    options:{...gBase}
+  const s=[...DATA].sort((a,b)=>b.ytd_pct-a.ytd_pct);
+  charts.barAbs=new Chart(document.getElementById('barAbsChart'),{
+    type:'bar',data:{labels:s.map(d=>d.name.split(' ')[0]),datasets:[
+      {label:'هدف تا مهر',data:s.map(d=>d.ytd_target),backgroundColor:'rgba(245,158,11,.55)',borderRadius:4},
+      {label:'کل قرارداد',data:s.map(d=>d.total_contracts),backgroundColor:'rgba(79,142,247,.85)',borderRadius:4},
+      {label:'کل افتتاح',data:s.map(d=>d.total_opened),backgroundColor:'rgba(16,185,129,.9)',borderRadius:4}
+    ]},options:{...gBase}
   });
 }
-
-// ============ STACKED ============
 function renderStackedChart(){
   dc('stacked');
-  const sorted=[...DATA].sort((a,b)=>b.open_pct-a.open_pct);
-  charts['stacked']=new Chart(document.getElementById('stackedChart'),{
-    type:'bar',
-    data:{
-      labels:sorted.map(d=>d.name.split(' ')[0]),
-      datasets:[
-        {label:'ستادی',   data:sorted.map(d=>d.standard), backgroundColor:'rgba(79,142,247,0.85)',borderRadius:4,stack:'s1'},
-        {label:'فرانچایز',data:sorted.map(d=>d.franchise),backgroundColor:'rgba(124,58,237,0.85)',borderRadius:4,stack:'s1'},
-      ]
-    },
-    options:{
-      ...gBase,
-      plugins:{legend:{labels:{color:'#8892a4'}},tooltip:{mode:'index',intersect:false}},
-      scales:{
-        x:{ticks:{color:'#8892a4',font:{size:10},maxRotation:45},grid:{color:'#1a2030'},stacked:true},
-        y:{ticks:{color:'#8892a4'},grid:{color:'#1a2030'},stacked:true}
-      }
-    }
+  const s=[...DATA].sort((a,b)=>b.total_contracts-a.total_contracts);
+  charts.stacked=new Chart(document.getElementById('stackedChart'),{
+    type:'bar',data:{labels:s.map(d=>d.name.split(' ')[0]),datasets:[
+      {label:'کل ستادی',data:s.map(d=>d.total_hq),backgroundColor:'rgba(79,142,247,.85)',borderRadius:4,stack:'s1'},
+      {label:'کل فرانچایز',data:s.map(d=>d.total_franchise),backgroundColor:'rgba(124,58,237,.85)',borderRadius:4,stack:'s1'}
+    ]},options:{...gBase,plugins:{legend:{labels:{color:'#8892a4'}},tooltip:{mode:'index',intersect:false}},scales:{
+      x:{ticks:{color:'#8892a4',font:{size:10},maxRotation:45},grid:{color:'#1a2030'},stacked:true},
+      y:{ticks:{color:'#8892a4'},grid:{color:'#1a2030'},stacked:true}
+    }}
   });
 }
-
-// ============ BUBBLE ============
 function renderBubbleChart(){
   dc('bubble');
-  charts['bubble']=new Chart(document.getElementById('bubbleChart'),{
+  charts.bubble=new Chart(document.getElementById('bubbleChart'),{
     type:'bubble',
-    data:{
-      datasets:[{
-        label:'مدیران',
-        data:DATA.map(d=>({x:d.open_pct,y:d.cont_pct,r:Math.max(4,d.total*1.2),name:d.name})),
-        backgroundColor:DATA.map(d=>lvlClr(d.open_pct)+'99'),
-        borderColor:DATA.map(d=>lvlClr(d.open_pct)),
-        borderWidth:1.5,
-      }]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        tooltip:{callbacks:{label:ctx=>{
-          const d=DATA[ctx.dataIndex];
-          return d?[`📍 ${d.name}`,`% افتتاح: ${d.open_pct}%`,`% قرارداد: ${d.cont_pct}%`,`مجموع قرارداد: ${d.total}`]:'';
-        }}}
-      },
-      scales:{
-        x:{title:{display:true,text:'🥇 % تحقق افتتاح',color:'#10b981'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}},
-        y:{title:{display:true,text:'🥈 % تحقق قراردادی',color:'#4f8ef7'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}}
-      }
-    }
+    data:{datasets:[{label:'مناطق',data:DATA.map(d=>({x:d.new_pct,y:d.ytd_pct,r:Math.max(4,Math.min(24,d.total_contracts*.75)),name:d.name})),backgroundColor:DATA.map(d=>lvlClr(d.ytd_pct)+'99'),borderColor:DATA.map(d=>lvlClr(d.ytd_pct)),borderWidth:1.5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{
+      const d=DATA[ctx.dataIndex];return d?[`📍 ${d.name}`,`تحقق تا مهر: ${fmt(d.ytd_pct)}%`,`تحقق قراردادی از شهریور: ${fmt(d.new_pct)}%`,`کل قرارداد: ${d.total_contracts}`]:'';
+    }}}},scales:{
+      x:{title:{display:true,text:'🥈 تحقق هدف قراردادی از شهریور',color:'#4f8ef7'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}},
+      y:{title:{display:true,text:'🥇 تحقق کل هدف قراردادی تا مهر',color:'#10b981'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}}
+    }}
   });
 }
 
-// ============ TABLE SORT ============
 function tSort(key){
-  if(tSortKey===key) tSortDir*=-1; else { tSortKey=key; tSortDir=-1; }
-  updateSortIndicators();
-  renderTable();
+  if(tSortKey===key)tSortDir*=-1;else{tSortKey=key;tSortDir=-1;}
+  updateSortIndicators();renderTable();
 }
-
 function updateSortIndicators(){
   document.querySelectorAll('#tHead th[data-key]').forEach(th=>{
-    const arrow=th.querySelector('.sortArrow');
-    if(!arrow) return;
-    arrow.textContent = th.dataset.key===tSortKey ? (tSortDir===1?' ▲':' ▼') : '';
+    const a=th.querySelector('.sortArrow');if(a)a.textContent=th.dataset.key===tSortKey?(tSortDir===1?' ▲':' ▼'):'';
   });
 }
 
