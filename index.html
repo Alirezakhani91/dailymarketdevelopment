@@ -628,7 +628,7 @@ tbody tr:hover{background:#1a2030;}
     <div class="prNum pr2">۲</div>
     <div>
       <div class="prText">تحقق هدف قراردادی از شهریور</div>
-      <div class="prLabel">کل قرارداد از شهریور ÷ هدف جدید شهریور تا مهر</div>
+      <div class="prLabel">کل قرارداد از شهریور ÷ هدف جدید شهریور</div>
     </div>
   </div>
   <div style="margin-right:auto;font-size:11px;color:#8892a4;">
@@ -702,7 +702,7 @@ tbody tr:hover{background:#1a2030;}
       </div>
       <div class="cmpWrap">
         <div class="cmpItem">
-          <div class="cmpLabel">هدف جدید شهریور تا مهر</div>
+          <div class="cmpLabel">هدف جدید شهریور</div>
           <div class="cmpBg"><div class="cmpFill" id="logicNewTargetBar" style="width:100%;background:#f59e0b;"></div></div>
           <div class="cmpVal" id="logicNewTarget">—</div>
         </div>
@@ -714,7 +714,7 @@ tbody tr:hover{background:#1a2030;}
         <div style="margin-top:8px;padding:12px 14px;border-radius:10px;background:rgba(79,142,247,.08);border:1px solid rgba(79,142,247,.18);">
           <div style="font-size:10px;color:#8892a4;">فرمول</div>
           <div style="margin-top:5px;font-size:13px;font-weight:800;color:#fff;">
-            کل قرارداد از شهریور ÷ هدف جدید شهریور تا مهر =
+            کل قرارداد از شهریور ÷ هدف جدید شهریور =
             <span id="logicNewPct" style="color:#60a5fa;">—</span>
           </div>
         </div>
@@ -802,7 +802,7 @@ tbody tr:hover{background:#1a2030;}
       <div class="cHead">
         <div>
           <div class="cTitle">🥈 برترین مناطق - تحقق قراردادی از شهریور</div>
-          <div class="cSub">کل قرارداد از شهریور ÷ هدف جدید شهریور تا مهر</div>
+          <div class="cSub">کل قرارداد از شهریور ÷ هدف جدید شهریور</div>
         </div>
         <span class="prTag prTag2">اولویت ۲</span>
       </div>
@@ -1313,7 +1313,7 @@ function renderKPI(){
   const cards=[
     {c:'k1 priority2',ico:'🚀',badge:'از شهریور',b:'bb',label:'تحقق هدف قراردادی از شهریور',val:fmt(x.newPct)+'%',sub:`${x.newContracts} قرارداد از هدف ${x.newTarget}`},
     {c:'k2 priority2',ico:'📑',badge:'Actual',b:'bb',label:'کل قرارداد از شهریور',val:x.newContracts,sub:`${x.newHQ} ستادی + ${x.newFran} فرانچایز`},
-    {c:'k3',ico:'🎯',badge:'Target',b:'bo',label:'هدف جدید شهریور تا مهر',val:x.newTarget,sub:`Gap دوره جدید: ${x.newGap}`},
+    {c:'k3',ico:'🎯',badge:'Target',b:'bo',label:'هدف جدید شهریور',val:x.newTarget,sub:`Gap دوره جدید: ${x.newGap}`},
     {c:'k4 priority1',ico:'📅',badge:'تا مهر',b:'bg',label:'تحقق کل هدف قراردادی تا مهر',val:fmt(x.ytdPct)+'%',sub:`${x.totalContracts} قرارداد از هدف ${x.ytdTarget}`},
     {c:'k5 priority1',ico:'📄',badge:'Actual',b:'bg',label:'مجموع کل قرارداد ۱۴۰۵',val:x.totalContracts,sub:`${x.totalHQ} ستادی + ${x.totalFran} فرانچایز`},
     {c:'k6',ico:'🎯',badge:'Target',b:'bo',label:'هدف تجمعی تا مهر',val:x.ytdTarget,sub:`Gap تجمعی: ${x.ytdGap}`},
@@ -1474,7 +1474,7 @@ function renderComparison(){
     {l:'هدف تا مهر',v:x.ytdTarget,d:x.ytdTarget,c:'#f59e0b',m:maxV},
     {l:'مجموع کل قرارداد',v:x.totalContracts,d:x.totalContracts,c:'#4f8ef7',m:maxV},
     {l:'مجموع افتتاح',v:x.totalOpened,d:x.totalOpened,c:'#10b981',m:maxV},
-    {l:'هدف جدید شهریور تا مهر',v:x.newTarget,d:x.newTarget,c:'#ec4899',m:maxV},
+    {l:'هدف جدید شهریور',v:x.newTarget,d:x.newTarget,c:'#ec4899',m:maxV},
     {l:'کل قرارداد از شهریور از شهریور',v:x.newContracts,d:x.newContracts,c:'#06b6d4',m:maxV}
   ];
   document.getElementById('cmpWrap').innerHTML=items.map(i=>`
