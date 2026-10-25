@@ -606,7 +606,7 @@ tbody tr:hover{background:#1a2030;}
     </div>
   </div>
   <div class="hRight">
-    <div class="hPriority">🥇 عملکرد کل تا مهر &nbsp;|&nbsp; 🥈 عملکرد از شهریور</div>
+    <div class="hPriority">🥇 عملکرد کل &nbsp;|&nbsp; 🥈 عملکرد از شهریور</div>
     <div class="hBadge">📅 <span id="hDate"></span></div>
     <div class="hBadge" id="hTotal">۲۴ منطقه</div>
     <div class="hBadge" id="syncStatus">🔄 در حال اتصال به گوگل شیت...</div>
@@ -619,16 +619,16 @@ tbody tr:hover{background:#1a2030;}
   <div class="prItem">
     <div class="prNum pr1">۱</div>
     <div>
-      <div class="prText">تحقق کل هدف قراردادی تا مهر</div>
-      <div class="prLabel">تصویر تجمعی عملکرد سال ۱۴۰۵ تا پایان مهر</div>
+      <div class="prText">تحقق کل هدف</div>
+      <div class="prLabel">مقایسه قراردادهای ثبت‌شده از ابتدای سال ۱۴۰۵ با هدف کل</div>
     </div>
   </div>
   <div style="width:1px;height:30px;background:#2a3550;"></div>
   <div class="prItem">
     <div class="prNum pr2">۲</div>
     <div>
-      <div class="prText">تحقق هدف قراردادی از شهریور</div>
-      <div class="prLabel">کل قرارداد از شهریور ÷ هدف جدید شهریور</div>
+      <div class="prText">تحقق هدف جدید از شهریور</div>
+      <div class="prLabel">کل قرارداد از شهریور ÷ هدف جدید از شهریور</div>
     </div>
   </div>
   <div style="margin-right:auto;font-size:11px;color:#8892a4;">
@@ -646,7 +646,7 @@ tbody tr:hover{background:#1a2030;}
   </select>
 
   <select id="fYtd" onchange="applyFilters()">
-    <option value="">🥇 همه - تحقق تا مهر</option>
+    <option value="">🥇 همه - تحقق کل هدف</option>
     <option value="ex">عالی ≥100%</option>
     <option value="gd">خوب 70-99%</option>
     <option value="av">متوسط 40-69%</option>
@@ -654,7 +654,7 @@ tbody tr:hover{background:#1a2030;}
   </select>
 
   <select id="fNew" onchange="applyFilters()">
-    <option value="">🥈 همه - تحقق قراردادی از شهریور</option>
+    <option value="">🥈 همه - تحقق هدف جدید از شهریور</option>
     <option value="ex">عالی ≥100%</option>
     <option value="gd">خوب 70-99%</option>
     <option value="av">متوسط 40-69%</option>
@@ -668,11 +668,11 @@ tbody tr:hover{background:#1a2030;}
   </select>
 
   <select id="fSort" onchange="applyFilters()">
-    <option value="ytd_pct_d">🥇 تحقق تا مهر ↓</option>
-    <option value="new_pct_d">🥈 تحقق قراردادی از شهریور ↓</option>
+    <option value="ytd_pct_d">🥇 تحقق کل هدف ↓</option>
+    <option value="new_pct_d">🥈 تحقق هدف جدید از شهریور ↓</option>
     <option value="total_d">کل قرارداد ۱۴۰۵ ↓</option>
     <option value="opened_d">کل افتتاح ۱۴۰۵ ↓</option>
-    <option value="gap_d">بیشترین Gap تا مهر ↓</option>
+    <option value="gap_d">بیشترین Gap هدف کل ↓</option>
     <option value="name">نام منطقه</option>
   </select>
 
@@ -695,14 +695,14 @@ tbody tr:hover{background:#1a2030;}
     <div class="card priority2Card">
       <div class="cHead">
         <div>
-          <div class="cTitle">🚀 مسیر عملکرد بعد از تغییر هدف در شهریور</div>
+          <div class="cTitle">🚀 مسیر تحقق هدف جدید از شهریور</div>
           <div class="cSub">این بخش فقط عملکرد دوره جدید را می‌سنجد و با عملکرد قبل از شهریور مخلوط نمی‌شود.</div>
         </div>
         <span class="prTag prTag2">از شهریور</span>
       </div>
       <div class="cmpWrap">
         <div class="cmpItem">
-          <div class="cmpLabel">هدف جدید شهریور</div>
+          <div class="cmpLabel">هدف جدید از شهریور</div>
           <div class="cmpBg"><div class="cmpFill" id="logicNewTargetBar" style="width:100%;background:#f59e0b;"></div></div>
           <div class="cmpVal" id="logicNewTarget">—</div>
         </div>
@@ -714,7 +714,7 @@ tbody tr:hover{background:#1a2030;}
         <div style="margin-top:8px;padding:12px 14px;border-radius:10px;background:rgba(79,142,247,.08);border:1px solid rgba(79,142,247,.18);">
           <div style="font-size:10px;color:#8892a4;">فرمول</div>
           <div style="margin-top:5px;font-size:13px;font-weight:800;color:#fff;">
-            کل قرارداد از شهریور ÷ هدف جدید شهریور =
+            کل قرارداد از شهریور ÷ هدف جدید از شهریور =
             <span id="logicNewPct" style="color:#60a5fa;">—</span>
           </div>
         </div>
@@ -724,14 +724,14 @@ tbody tr:hover{background:#1a2030;}
     <div class="card priorityCard">
       <div class="cHead">
         <div>
-          <div class="cTitle">📅 مسیر عملکرد تجمعی سال تا پایان مهر</div>
-          <div class="cSub">این بخش تصویر کلی سال ۱۴۰۵ را تا پایان مهر نشان می‌دهد.</div>
+          <div class="cTitle">📅 مسیر تحقق هدف کل</div>
+          <div class="cSub">این بخش عملکرد ثبت‌شده از ابتدای سال ۱۴۰۵ را با هدف کل مقایسه می‌کند.</div>
         </div>
-        <span class="prTag prTag1">تجمعی تا مهر</span>
+        <span class="prTag prTag1">هدف کل</span>
       </div>
       <div class="cmpWrap">
         <div class="cmpItem">
-          <div class="cmpLabel">هدف تجمعی تا مهر</div>
+          <div class="cmpLabel">هدف کل</div>
           <div class="cmpBg"><div class="cmpFill" id="logicYtdTargetBar" style="width:100%;background:#f59e0b;"></div></div>
           <div class="cmpVal" id="logicYtdTarget">—</div>
         </div>
@@ -743,7 +743,7 @@ tbody tr:hover{background:#1a2030;}
         <div style="margin-top:8px;padding:12px 14px;border-radius:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.18);">
           <div style="font-size:10px;color:#8892a4;">فرمول</div>
           <div style="margin-top:5px;font-size:13px;font-weight:800;color:#fff;">
-            مجموع کل قرارداد ÷ هدف تا مهر =
+            مجموع کل قرارداد ÷ هدف کل =
             <span id="logicYtdPct" style="color:#34d399;">—</span>
           </div>
         </div>
@@ -758,7 +758,7 @@ tbody tr:hover{background:#1a2030;}
     <div class="cHead">
       <div>
         <div class="cTitle">🎯 تصویر کل کشور</div>
-        <div class="cSub">دو لایه هدف: عملکرد تجمعی تا مهر و عملکرد پس از ابلاغ هدف جدید از شهریور</div>
+        <div class="cSub">دو شاخص مستقل: تحقق کل هدف و تحقق هدف جدید از شهریور</div>
       </div>
       <span class="prTag prTag1">Executive Snapshot</span>
     </div>
@@ -776,8 +776,8 @@ tbody tr:hover{background:#1a2030;}
         <div class="execSub">تجمیع مناطق هر مدیر اجرایی بر اساس اهداف و عملکرد؛ با کلیک روی هر کارت، کل داشبورد فقط مناطق همان مدیر را نمایش می‌دهد.</div>
       </div>
       <div class="execRule">
-        <span class="p1">اولویت ۱: تحقق تا مهر</span>
-        <span class="p2">اولویت ۲: تحقق قراردادی از شهریور</span>
+        <span class="p1">اولویت ۱: تحقق کل هدف</span>
+        <span class="p2">اولویت ۲: تحقق هدف جدید از شهریور</span>
       </div>
     </div>
     <div class="execSummary" id="execSummary"></div>
@@ -791,8 +791,8 @@ tbody tr:hover{background:#1a2030;}
     <div class="card priorityCard">
       <div class="cHead">
         <div>
-          <div class="cTitle">🥇 برترین مناطق - تحقق هدف تا مهر</div>
-          <div class="cSub">مجموع کل قرارداد ÷ هدف تجمعی تا مهر</div>
+          <div class="cTitle">🥇 برترین مناطق - تحقق کل هدف</div>
+          <div class="cSub">مجموع کل قرارداد ÷ هدف کل</div>
         </div>
         <span class="prTag prTag1">اولویت ۱</span>
       </div>
@@ -801,8 +801,8 @@ tbody tr:hover{background:#1a2030;}
     <div class="card priority2Card">
       <div class="cHead">
         <div>
-          <div class="cTitle">🥈 برترین مناطق - تحقق قراردادی از شهریور</div>
-          <div class="cSub">کل قرارداد از شهریور ÷ هدف جدید شهریور</div>
+          <div class="cTitle">🥈 برترین مناطق - تحقق هدف جدید از شهریور</div>
+          <div class="cSub">کل قرارداد از شهریور ÷ هدف جدید از شهریور</div>
         </div>
         <span class="prTag prTag2">اولویت ۲</span>
       </div>
@@ -817,17 +817,17 @@ tbody tr:hover{background:#1a2030;}
     <div class="cHead">
       <div class="cTitle">🏆 رتبه‌بندی دوگانه مناطق</div>
       <div style="display:flex;gap:10px;">
-        <span class="prTag prTag1">تحقق تا مهر</span>
-        <span class="prTag prTag2">هدف جدید از شهریور</span>
+        <span class="prTag prTag1">تحقق کل هدف</span>
+        <span class="prTag prTag2">تحقق هدف جدید از شهریور</span>
       </div>
     </div>
     <div class="dualLb">
       <div class="dualSide">
-        <div class="dualHeader" style="color:#10b981;">🥇 رتبه‌بندی تحقق هدف تا مهر</div>
+        <div class="dualHeader" style="color:#10b981;">🥇 رتبه‌بندی تحقق کل هدف</div>
         <div id="lbYtd"></div>
       </div>
       <div class="dualSide">
-        <div class="dualHeader" style="color:#4f8ef7;">🥈 رتبه‌بندی تحقق قراردادی از شهریور</div>
+        <div class="dualHeader" style="color:#4f8ef7;">🥈 رتبه‌بندی تحقق هدف جدید از شهریور</div>
         <div id="lbNew"></div>
       </div>
     </div>
@@ -839,12 +839,12 @@ tbody tr:hover{background:#1a2030;}
   <div class="card priorityCard">
     <div class="cHead">
       <div>
-        <div class="cTitle">📊 مقایسه دو شاخص تحقق</div>
-        <div class="cSub">تحقق تجمعی تا مهر در برابر تحقق هدف قراردادی از شهریور</div>
+        <div class="cTitle">📊 مقایسه دو شاخص تحقق اهداف</div>
+        <div class="cSub">تحقق کل هدف در برابر تحقق هدف جدید از شهریور</div>
       </div>
       <div class="legend">
-        <div class="legItem"><div class="legDot" style="background:#10b981;"></div>تحقق هدف تا مهر</div>
-        <div class="legItem"><div class="legDot" style="background:#4f8ef7;"></div>تحقق قراردادی از شهریور</div>
+        <div class="legItem"><div class="legDot" style="background:#10b981;"></div>تحقق کل هدف</div>
+        <div class="legItem"><div class="legDot" style="background:#4f8ef7;"></div>تحقق هدف جدید از شهریور</div>
       </div>
     </div>
     <div class="chartWrap" style="height:320px;">
@@ -858,7 +858,7 @@ tbody tr:hover{background:#1a2030;}
   <div class="card">
     <div class="cHead">
       <div>
-        <div class="cTitle">🥧 توزیع سطح تحقق هدف تا مهر</div>
+        <div class="cTitle">🥧 توزیع سطح تحقق کل هدف</div>
         <div class="cSub">تعداد مناطق در هر سطح عملکرد</div>
       </div>
       <span class="prTag prTag1">YTD Performance</span>
@@ -874,11 +874,11 @@ tbody tr:hover{background:#1a2030;}
   <div class="card">
     <div class="cHead">
       <div>
-        <div class="cTitle">📈 هدف تا مهر، کل قرارداد و کل افتتاح</div>
+        <div class="cTitle">📈 هدف کل، کل قرارداد و کل افتتاح</div>
         <div class="cSub">مقایسه حجم واقعی عملکرد هر منطقه</div>
       </div>
       <div class="legend">
-        <div class="legItem"><div class="legDot" style="background:#f59e0b;"></div>هدف تا مهر</div>
+        <div class="legItem"><div class="legDot" style="background:#f59e0b;"></div>هدف کل</div>
         <div class="legItem"><div class="legDot" style="background:#4f8ef7;"></div>کل قرارداد</div>
         <div class="legItem"><div class="legDot" style="background:#10b981;"></div>کل افتتاح</div>
       </div>
@@ -944,12 +944,12 @@ tbody tr:hover{background:#1a2030;}
             <th>#</th>
             <th data-key="name" onclick="tSort('name')">مدیر منطقه<span class="sortArrow"></span></th>
             <th data-key="exec" onclick="tSort('exec')">مدیر اجرایی<span class="sortArrow"></span></th>
-            <th class="thP1" data-key="ytd_pct" onclick="tSort('ytd_pct')">🥇 تحقق تا مهر<span class="sortArrow"></span></th>
-            <th class="thP2" data-key="new_pct" onclick="tSort('new_pct')">🥈 تحقق قراردادی از شهریور<span class="sortArrow"></span></th>
-            <th data-key="ytd_target" onclick="tSort('ytd_target')">هدف تا مهر<span class="sortArrow"></span></th>
+            <th class="thP1" data-key="ytd_pct" onclick="tSort('ytd_pct')">🥇 تحقق کل هدف<span class="sortArrow"></span></th>
+            <th class="thP2" data-key="new_pct" onclick="tSort('new_pct')">🥈 تحقق هدف جدید از شهریور<span class="sortArrow"></span></th>
+            <th data-key="ytd_target" onclick="tSort('ytd_target')">هدف کل<span class="sortArrow"></span></th>
             <th data-key="total_contracts" onclick="tSort('total_contracts')">کل قرارداد<span class="sortArrow"></span></th>
             <th data-key="total_opened" onclick="tSort('total_opened')">کل افتتاح<span class="sortArrow"></span></th>
-            <th data-key="new_target" onclick="tSort('new_target')">هدف شهریور تا مهر<span class="sortArrow"></span></th>
+            <th data-key="new_target" onclick="tSort('new_target')">هدف جدید از شهریور<span class="sortArrow"></span></th>
             <th data-key="new_contracts" onclick="tSort('new_contracts')">کل قرارداد از شهریور<span class="sortArrow"></span></th>
             <th data-key="new_hq" onclick="tSort('new_hq')">ستادی جدید<span class="sortArrow"></span></th>
             <th data-key="new_franchise" onclick="tSort('new_franchise')">فرانچایز جدید<span class="sortArrow"></span></th>
@@ -1013,6 +1013,28 @@ function findHeaderIndex(headers, aliases, fallback=-1){
   for(let i=0;i<headers.length;i++) if(a.some(x=>x && (headers[i].includes(x)||x.includes(headers[i])))) return i;
   return fallback;
 }
+// پشتیبانی از نام‌های جدید و نام‌های ماه‌دار قدیمی، بدون وابستگی به مهر، آبان یا ماه دیگری.
+function findNewTargetIndex(headers, fallback=3){
+  const root=normalizeHeader('هدف جدید از شهریور');
+  const legacy=headers.findIndex(h=>h.startsWith(root+' تا '));
+  if(legacy>=0) return legacy;
+  const alternate=findHeaderIndex(headers,['هدف تجمیعی از شهریور','هدف جدید تجمیعی از شهریور','هدف اصلاح شده از شهریور'],-1);
+  if(alternate>=0) return alternate;
+  const exactMatches=headers.map((h,i)=>h===root?i:-1).filter(i=>i>=0);
+  return exactMatches.length?exactMatches[exactMatches.length-1]:fallback;
+}
+function findTotalTargetIndex(headers, fallback=13){
+  const direct=findHeaderIndex(headers,['هدف کل','هدف کل قرارداد','هدف سالانه','هدف کل سال','هدف قراردادی کل'],-1);
+  if(direct>=0) return direct;
+  const legacy=headers.findIndex(h=>/^هدف (?:تجمعی )?تا /.test(h));
+  return legacy>=0?legacy:fallback;
+}
+function findTotalPctIndex(headers, fallback=14){
+  const direct=findHeaderIndex(headers,['تحقق کل هدف','تحقق هدف کل','تحقق هدف قراردادی کل'],-1);
+  if(direct>=0) return direct;
+  const legacy=headers.findIndex(h=>/^تحقق .*هدف.* تا /.test(h));
+  return legacy>=0?legacy:fallback;
+}
 function n(v){
   const x=parseFloat(String(v??'').replace(/[,٪%]/g,'').trim());
   return Number.isFinite(x)?x:0;
@@ -1044,12 +1066,20 @@ function mapObjectsToData(objects){
       return "";
     };
 
+    const getByPattern = re => {
+      const key=Object.keys(normalized).find(k=>re.test(k));
+      return key===undefined ? '' : normalized[key];
+    };
+
     const name = String(get(['مدیر منطقه']) || '').trim();
     if(!name) return null;
 
     const exec = String(get(['مدیر اجرایی']) || '').trim() || 'تعیین نشده';
     const target_sep = n(get(['هدف جدید از شهریور']));
-    const new_target = n(get(['هدف جدید از شهریور تا مهر']));
+    // If the source still has two goal columns, the cumulative September-onward
+    // column takes priority over the standalone September goal.
+    const new_target = n(getByPattern(/^هدف جدید از شهریور تا /) ||
+      get(['هدف تجمیعی از شهریور','هدف جدید تجمیعی از شهریور','هدف جدید از شهریور']));
     const new_hq = n(get(['قرارداد ستادی از شهریور','قرارداد ستادی']));
     const new_franchise = n(get(['ترهین فرانچایز از شهریور','ترهین فرانچایز','قرارداد فرانچایز از شهریور','قرارداد فرانچایز']));
     const explicit_new_contracts = n(get(['کل قرارداد از شهریور'])) || (new_hq + new_franchise);
@@ -1058,12 +1088,14 @@ function mapObjectsToData(objects){
     const total_franchise = n(get(['مجموع قرارداد فرانچایز']));
     const total_contracts = n(get(['مجموع کل قرارداد','مجموع قرارداد']));
     const total_opened = n(get(['مجموع افتتاح']));
-    const ytd_target = n(get(['هدف تا مهر ماه','هدف تا مهر']));
+    const ytd_target = n(get(['هدف کل','هدف کل قرارداد','هدف سالانه','هدف کل سال','هدف قراردادی کل']) ||
+      getByPattern(/^هدف (?:تجمعی )?تا /));
 
     let new_pct = pct(get(['تحقق هدف جدید قراردادی از شهریور','تحقق هدف قراردادی از شهریور','تحقق هدف جدید قراردادی']));
     if(!new_pct && new_target) new_pct = explicit_new_contracts / new_target * 100;
 
-    let ytd_pct = pct(get(['تحقق هدف قراردادی تا مهر','تحقق کل هدف قراردادی تا مهر']));
+    let ytd_pct = pct(get(['تحقق کل هدف','تحقق هدف کل','تحقق هدف قراردادی کل']) ||
+      getByPattern(/^تحقق .*هدف.* تا /));
     if(!ytd_pct && ytd_target) ytd_pct = total_contracts / ytd_target * 100;
 
     return {
@@ -1086,7 +1118,7 @@ function mapRowsToData(rows){
     name:findHeaderIndex(h,['مدیر منطقه'],0),
     exec:findHeaderIndex(h,['مدیر اجرایی'],1),
     target_sep:findHeaderIndex(h,['هدف جدید از شهریور'],2),
-    new_target:findHeaderIndex(h,['هدف جدید از شهریور تا مهر'],3),
+    new_target:findNewTargetIndex(h,3),
     new_hq:findHeaderIndex(h,['قرارداد ستادی از شهریور','قرارداد ستادی'],4),
     new_franchise:findHeaderIndex(h,['ترهین فرانچایز از شهریور','ترهین فرانچایز','قرارداد فرانچایز از شهریور','قرارداد فرانچایز'],5),
     new_contracts:findHeaderIndex(h,['کل قرارداد از شهریور'],6),
@@ -1096,8 +1128,8 @@ function mapRowsToData(rows){
     total_franchise:findHeaderIndex(h,['مجموع قرارداد فرانچایز'],10),
     total_contracts:findHeaderIndex(h,['مجموع کل قرارداد','مجموع قرارداد'],11),
     total_opened:findHeaderIndex(h,['مجموع افتتاح'],12),
-    ytd_target:findHeaderIndex(h,['هدف تا مهر ماه','هدف تا مهر'],13),
-    ytd_pct:findHeaderIndex(h,['تحقق هدف قراردادی تا مهر','تحقق کل هدف قراردادی تا مهر'],14)
+    ytd_target:findTotalTargetIndex(h,13),
+    ytd_pct:findTotalPctIndex(h,14)
   };
   const out=[];
   for(let i=1;i<rows.length;i++){
@@ -1311,12 +1343,12 @@ function renderKPI(){
   const x=national();
   const franchiseShare=x.newContracts?x.newFran/x.newContracts*100:0;
   const cards=[
-    {c:'k1 priority2',ico:'🚀',badge:'از شهریور',b:'bb',label:'تحقق هدف قراردادی از شهریور',val:fmt(x.newPct)+'%',sub:`${x.newContracts} قرارداد از هدف ${x.newTarget}`},
+    {c:'k1 priority2',ico:'🚀',badge:'از شهریور',b:'bb',label:'تحقق هدف جدید از شهریور',val:fmt(x.newPct)+'%',sub:`${x.newContracts} قرارداد از هدف ${x.newTarget}`},
     {c:'k2 priority2',ico:'📑',badge:'Actual',b:'bb',label:'کل قرارداد از شهریور',val:x.newContracts,sub:`${x.newHQ} ستادی + ${x.newFran} فرانچایز`},
-    {c:'k3',ico:'🎯',badge:'Target',b:'bo',label:'هدف جدید شهریور',val:x.newTarget,sub:`Gap دوره جدید: ${x.newGap}`},
-    {c:'k4 priority1',ico:'📅',badge:'تا مهر',b:'bg',label:'تحقق کل هدف قراردادی تا مهر',val:fmt(x.ytdPct)+'%',sub:`${x.totalContracts} قرارداد از هدف ${x.ytdTarget}`},
+    {c:'k3',ico:'🎯',badge:'Target',b:'bo',label:'هدف جدید از شهریور',val:x.newTarget,sub:`Gap دوره جدید: ${x.newGap}`},
+    {c:'k4 priority1',ico:'📅',badge:'هدف کل',b:'bg',label:'تحقق کل هدف',val:fmt(x.ytdPct)+'%',sub:`${x.totalContracts} قرارداد از هدف ${x.ytdTarget}`},
     {c:'k5 priority1',ico:'📄',badge:'Actual',b:'bg',label:'مجموع کل قرارداد ۱۴۰۵',val:x.totalContracts,sub:`${x.totalHQ} ستادی + ${x.totalFran} فرانچایز`},
-    {c:'k6',ico:'🎯',badge:'Target',b:'bo',label:'هدف تجمعی تا مهر',val:x.ytdTarget,sub:`Gap تجمعی: ${x.ytdGap}`},
+    {c:'k6',ico:'🎯',badge:'Target',b:'bo',label:'هدف کل',val:x.ytdTarget,sub:`Gap هدف کل: ${x.ytdGap}`},
     {c:'k7',ico:'🏪',badge:'افتتاح',b:'bp',label:'مجموع افتتاح از ابتدای سال',val:x.totalOpened,sub:'فروشگاه افتتاح‌شده در ۱۴۰۵'},
     {c:'k8',ico:'🧭',badge:'Pipeline',b:'bb',label:'درحال افتتاح',val:x.pipeline,sub:'فروشگاه با تاریخ افتتاح اعلام‌شده'}
   ];
@@ -1351,8 +1383,8 @@ function renderGauge(){
   const x=national();
   const zero=DATA.filter(d=>d.new_contracts===0).length;
   const items=[
-    {v:fmt(x.ytdPct)+'%',l:'تحقق کل هدف تا مهر',s:`${x.totalContracts}/${x.ytdTarget}`,c:'#10b981',cl:'gp1'},
-    {v:fmt(x.newPct)+'%',l:'تحقق هدف قراردادی از شهریور',s:`${x.newContracts}/${x.newTarget}`,c:'#4f8ef7',cl:'gp2'},
+    {v:fmt(x.ytdPct)+'%',l:'تحقق کل هدف',s:`${x.totalContracts}/${x.ytdTarget}`,c:'#10b981',cl:'gp1'},
+    {v:fmt(x.newPct)+'%',l:'تحقق هدف جدید از شهریور',s:`${x.newContracts}/${x.newTarget}`,c:'#4f8ef7',cl:'gp2'},
     {v:x.totalOpened,l:'افتتاح‌شده از ابتدای سال',s:'فروشگاه',c:'#f59e0b',cl:''},
     {v:x.pipeline,l:'درحال افتتاح',s:'فروشگاه',c:'#06b6d4',cl:''},
     {v:zero,l:'مناطق بدون کل قرارداد از شهریور',s:`از ${DATA.length} منطقه`,c:'#ef4444',cl:''}
@@ -1392,7 +1424,7 @@ function renderExecutiveManagers(){
   const lead=ex[0], x=national();
   summary.innerHTML=[
     {l:'تعداد مدیران اجرایی',v:ex.length+' نفر',h:DATA.length+' منطقه در نمای فعلی'},
-    {l:'بهترین تحقق تا مهر',v:lead.name,h:fmt(lead.ytd_pct)+'% تحقق'},
+    {l:'بهترین تحقق کل هدف',v:lead.name,h:fmt(lead.ytd_pct)+'% تحقق'},
     {l:'عملکرد کل نمای فعلی',v:fmt(x.ytdPct)+'%',h:x.totalContracts+' قرارداد از '+x.ytdTarget+' هدف'}
   ].map(a=>`<div class="execSummaryItem"><div class="execSummaryLabel">${a.l}</div><div class="execSummaryValue">${a.v}</div><div class="execSummaryHint">${a.h}</div></div>`).join('');
 
@@ -1413,16 +1445,16 @@ function renderExecutiveManagers(){
         <span class="execStatus ${sc}">${st}</span>
       </div>
       <div class="execMetrics">
-        <div class="execMetric"><div class="execMetricVal green">${fmt(e.ytd_pct)}%</div><div class="execMetricLabel">تحقق تا مهر</div></div>
-        <div class="execMetric"><div class="execMetricVal blue">${fmt(e.new_pct)}%</div><div class="execMetricLabel">تحقق قراردادی از شهریور</div></div>
+        <div class="execMetric"><div class="execMetricVal green">${fmt(e.ytd_pct)}%</div><div class="execMetricLabel">تحقق کل هدف</div></div>
+        <div class="execMetric"><div class="execMetricVal blue">${fmt(e.new_pct)}%</div><div class="execMetricLabel">تحقق هدف جدید از شهریور</div></div>
         <div class="execMetric"><div class="execMetricVal gold">${e.total_opened}</div><div class="execMetricLabel">کل افتتاح</div></div>
       </div>
       <div class="execProgress">
-        <div class="execProgressTop"><span class="execProgressLabel">کل قرارداد / هدف تا مهر</span><span class="execProgressValue" style="color:${yClr};">${e.total_contracts}/${e.ytd_target}</span></div>
+        <div class="execProgressTop"><span class="execProgressLabel">کل قرارداد / هدف کل</span><span class="execProgressValue" style="color:${yClr};">${e.total_contracts}/${e.ytd_target}</span></div>
         <div class="execTrack"><div class="execFill open" style="width:${Math.min(e.ytd_pct,100)}%;"></div></div>
       </div>
       <div class="execProgress">
-        <div class="execProgressTop"><span class="execProgressLabel">کل قرارداد از شهریور / هدف جدید</span><span class="execProgressValue" style="color:${nClr};">${e.new_contracts}/${e.new_target}</span></div>
+        <div class="execProgressTop"><span class="execProgressLabel">کل قرارداد از شهریور / هدف جدید از شهریور</span><span class="execProgressValue" style="color:${nClr};">${e.new_contracts}/${e.new_target}</span></div>
         <div class="execTrack"><div class="execFill cont" style="width:${Math.min(e.new_pct,100)}%;"></div></div>
       </div>
       <div class="execInsights">
@@ -1469,13 +1501,13 @@ function renderComparison(){
   const x=national();
   const maxV=Math.max(x.ytdTarget,x.totalContracts,x.totalOpened,x.newTarget,x.newContracts,1);
   const items=[
-    {l:'🥇 تحقق هدف تا مهر',v:x.ytdPct,d:fmt(x.ytdPct)+'%',c:lvlClr(x.ytdPct),m:100},
-    {l:'🥈 تحقق هدف قراردادی از شهریور',v:x.newPct,d:fmt(x.newPct)+'%',c:lvlClr(x.newPct),m:100},
-    {l:'هدف تا مهر',v:x.ytdTarget,d:x.ytdTarget,c:'#f59e0b',m:maxV},
+    {l:'🥇 تحقق کل هدف',v:x.ytdPct,d:fmt(x.ytdPct)+'%',c:lvlClr(x.ytdPct),m:100},
+    {l:'🥈 تحقق هدف جدید از شهریور',v:x.newPct,d:fmt(x.newPct)+'%',c:lvlClr(x.newPct),m:100},
+    {l:'هدف کل',v:x.ytdTarget,d:x.ytdTarget,c:'#f59e0b',m:maxV},
     {l:'مجموع کل قرارداد',v:x.totalContracts,d:x.totalContracts,c:'#4f8ef7',m:maxV},
     {l:'مجموع افتتاح',v:x.totalOpened,d:x.totalOpened,c:'#10b981',m:maxV},
-    {l:'هدف جدید شهریور',v:x.newTarget,d:x.newTarget,c:'#ec4899',m:maxV},
-    {l:'کل قرارداد از شهریور از شهریور',v:x.newContracts,d:x.newContracts,c:'#06b6d4',m:maxV}
+    {l:'هدف جدید از شهریور',v:x.newTarget,d:x.newTarget,c:'#ec4899',m:maxV},
+    {l:'کل قرارداد از شهریور',v:x.newContracts,d:x.newContracts,c:'#06b6d4',m:maxV}
   ];
   document.getElementById('cmpWrap').innerHTML=items.map(i=>`
     <div class="cmpItem"><div class="cmpLabel">${i.l}</div>
@@ -1538,8 +1570,8 @@ function renderBarPctChart(){
   charts.barPct=new Chart(document.getElementById('barPctChart'),{
     type:'bar',
     data:{labels:s.map(d=>d.name.split(' ')[0]),datasets:[
-      {label:'🥇 تحقق هدف تا مهر',data:s.map(d=>d.ytd_pct),backgroundColor:s.map(d=>lvlClr(d.ytd_pct)+'cc'),borderColor:s.map(d=>lvlClr(d.ytd_pct)),borderWidth:1.5,borderRadius:5},
-      {label:'🥈 تحقق قراردادی از شهریور',data:s.map(d=>d.new_pct),backgroundColor:'rgba(79,142,247,.55)',borderColor:'#4f8ef7',borderWidth:1,borderRadius:5}
+      {label:'🥇 تحقق کل هدف',data:s.map(d=>d.ytd_pct),backgroundColor:s.map(d=>lvlClr(d.ytd_pct)+'cc'),borderColor:s.map(d=>lvlClr(d.ytd_pct)),borderWidth:1.5,borderRadius:5},
+      {label:'🥈 تحقق هدف جدید از شهریور',data:s.map(d=>d.new_pct),backgroundColor:'rgba(79,142,247,.55)',borderColor:'#4f8ef7',borderWidth:1,borderRadius:5}
     ]},
     options:{...gBase,scales:{x:gBase.scales.x,y:{ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}}}}
   });
@@ -1558,7 +1590,7 @@ function renderBarAbsChart(){
   const s=[...DATA].sort((a,b)=>b.ytd_pct-a.ytd_pct);
   charts.barAbs=new Chart(document.getElementById('barAbsChart'),{
     type:'bar',data:{labels:s.map(d=>d.name.split(' ')[0]),datasets:[
-      {label:'هدف تا مهر',data:s.map(d=>d.ytd_target),backgroundColor:'rgba(245,158,11,.55)',borderRadius:4},
+      {label:'هدف کل',data:s.map(d=>d.ytd_target),backgroundColor:'rgba(245,158,11,.55)',borderRadius:4},
       {label:'کل قرارداد',data:s.map(d=>d.total_contracts),backgroundColor:'rgba(79,142,247,.85)',borderRadius:4},
       {label:'کل افتتاح',data:s.map(d=>d.total_opened),backgroundColor:'rgba(16,185,129,.9)',borderRadius:4}
     ]},options:{...gBase}
@@ -1583,10 +1615,10 @@ function renderBubbleChart(){
     type:'bubble',
     data:{datasets:[{label:'مناطق',data:DATA.map(d=>({x:d.new_pct,y:d.ytd_pct,r:Math.max(4,Math.min(24,d.total_contracts*.75)),name:d.name})),backgroundColor:DATA.map(d=>lvlClr(d.ytd_pct)+'99'),borderColor:DATA.map(d=>lvlClr(d.ytd_pct)),borderWidth:1.5}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{
-      const d=DATA[ctx.dataIndex];return d?[`📍 ${d.name}`,`تحقق تا مهر: ${fmt(d.ytd_pct)}%`,`تحقق قراردادی از شهریور: ${fmt(d.new_pct)}%`,`کل قرارداد: ${d.total_contracts}`]:'';
+      const d=DATA[ctx.dataIndex];return d?[`📍 ${d.name}`,`تحقق کل هدف: ${fmt(d.ytd_pct)}%`,`تحقق هدف جدید از شهریور: ${fmt(d.new_pct)}%`,`کل قرارداد: ${d.total_contracts}`]:'';
     }}}},scales:{
-      x:{title:{display:true,text:'🥈 تحقق هدف قراردادی از شهریور',color:'#4f8ef7'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}},
-      y:{title:{display:true,text:'🥇 تحقق کل هدف قراردادی تا مهر',color:'#10b981'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}}
+      x:{title:{display:true,text:'🥈 تحقق هدف جدید از شهریور',color:'#4f8ef7'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}},
+      y:{title:{display:true,text:'🥇 تحقق کل هدف',color:'#10b981'},ticks:{color:'#8892a4',callback:v=>v+'%'},grid:{color:'#1a2030'}}
     }}
   });
 }
